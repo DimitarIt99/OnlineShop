@@ -16,6 +16,16 @@
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public DateTime BirthDay { get; set; }
+
+        // To do Add Role
+        // public ApplicationRole Role { get; set; }
+        public string Phone { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 
