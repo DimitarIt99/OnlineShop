@@ -14,6 +14,8 @@
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Comments = new HashSet<Comment>();
+            this.Orders = new HashSet<Order>();
         }
 
         public string FirstName { get; set; }
@@ -21,6 +23,10 @@
         public string LastName { get; set; }
 
         public DateTime BirthDay { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
 
         // To do Add Role
         // public ApplicationRole Role { get; set; }
