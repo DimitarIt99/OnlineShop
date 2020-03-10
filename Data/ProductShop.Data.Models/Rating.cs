@@ -1,13 +1,11 @@
 ﻿namespace ProductShop.Data.Models
 {
     using ProductShop.Data.Common.Models;
+    using ProductShop.Data.Models.Enums;
 
-    public class Comment : BaseModel<int>
+    public class Rating : BaseModel<int>
     {
-        public string Content { get; set; }
-
-        // TO DO maybe do it a diffrent entity
-        public int Rating { get; set; }
+        public Grade Grade { get; set; }
 
         public string ApplicationUserId { get; set; }
 

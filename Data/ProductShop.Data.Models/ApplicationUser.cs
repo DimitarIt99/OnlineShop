@@ -16,6 +16,7 @@
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Comments = new HashSet<Comment>();
             this.Orders = new HashSet<Order>();
+            this.Products = new HashSet<Product>();
         }
 
         public string FirstName { get; set; }
@@ -23,6 +24,8 @@
         public string LastName { get; set; }
 
         public DateTime BirthDay { get; set; }
+
+        public ICollection<Product> Products { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 

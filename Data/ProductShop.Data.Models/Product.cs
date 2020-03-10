@@ -22,6 +22,10 @@
 
         public int Quantity { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
 
         public int CategoryId { get; set; }
