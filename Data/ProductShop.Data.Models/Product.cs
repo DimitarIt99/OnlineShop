@@ -4,12 +4,13 @@
 
     using ProductShop.Data.Common.Models;
 
-    public class Product : BaseModel<int>
+    public class Product : BaseDeletableModel<int>
     {
         public Product()
         {
             this.Comments = new HashSet<Comment>();
             this.Orders = new HashSet<Order>();
+            this.Ratings = new HashSet<Rating>();
         }
 
         public string Name { get; set; }
@@ -37,5 +38,7 @@
         public Subcategory Subcategory { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Rating> Ratings { get; set; }
     }
 }

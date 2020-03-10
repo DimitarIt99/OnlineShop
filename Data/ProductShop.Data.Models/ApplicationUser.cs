@@ -17,6 +17,7 @@
             this.Comments = new HashSet<Comment>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
+            this.Ratings = new HashSet<Rating>();
         }
 
         public string FirstName { get; set; }
@@ -30,6 +31,8 @@
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Rating> Ratings { get; set; }
 
         // To do Add Role
         // public ApplicationRole Role { get; set; }

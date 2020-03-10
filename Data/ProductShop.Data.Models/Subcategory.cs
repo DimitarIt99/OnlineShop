@@ -4,7 +4,7 @@
 
     using ProductShop.Data.Common.Models;
 
-    public class Subcategory : BaseModel<int>
+    public class Subcategory : BaseDeletableModel<int>
     {
         public Subcategory()
         {

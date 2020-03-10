@@ -5,7 +5,7 @@
     using ProductShop.Data.Common.Models;
     using ProductShop.Data.Models.Enums;
 
-    public class Order : BaseModel<string>
+    public class Order : BaseDeletableModel<string>
     {
         public Order()
         {
