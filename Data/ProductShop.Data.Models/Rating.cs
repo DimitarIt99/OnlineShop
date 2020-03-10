@@ -3,11 +3,11 @@
     using ProductShop.Data.Common.Models;
     using ProductShop.Data.Models.Enums;
 
-    public class Rating : BaseDeletableModel<int>
+    public class Rating : BaseModel<int>
     {
         public Grade Grade { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
 

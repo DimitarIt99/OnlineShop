@@ -16,7 +16,7 @@
 
         public string Adress { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
 

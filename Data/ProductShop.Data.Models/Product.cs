@@ -23,9 +23,9 @@
 
         public int Quantity { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 
