@@ -1,6 +1,7 @@
 ﻿namespace ProductShop.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using ProductShop.Data.Common.Models;
     using ProductShop.Data.Models.Enums;
@@ -14,8 +15,10 @@
 
         public DeliveryState State { get; set; }
 
+        [Required]
         public string Adress { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }

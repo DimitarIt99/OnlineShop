@@ -1,6 +1,7 @@
 ﻿namespace ProductShop.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using ProductShop.Data.Common.Models;
 
@@ -13,14 +14,18 @@
             this.Ratings = new HashSet<Rating>();
         }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string ImageUrl { get; set; }
 
         public string Description { get; set; }
 
+        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
+        [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
 
         public string UserId { get; set; }

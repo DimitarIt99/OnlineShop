@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
     using ProductShop.Data.Common.Models;
@@ -20,9 +21,14 @@
             this.Ratings = new HashSet<Rating>();
         }
 
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public string LastName { get; set; }
+
+        [Required]
+        public string Phone { get; set; }
 
         public DateTime BirthDay { get; set; }
 
@@ -36,7 +42,6 @@
 
         // To do Add Role
         // public ApplicationRole Role { get; set; }
-        public string Phone { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
