@@ -1,0 +1,18 @@
+﻿<div class="list-group">
+    <ul style="list-style-type: none">
+        @foreach (var viewModel in Model)
+        {
+        <li>
+            <div style="display: inline-block">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@viewModel.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">@viewModel.Description</p>
+                        <a asp-area="" asp-controller="Category" asp-action="Details" class="btn btn-secondary">@viewModel.Name</a>
+                    </div>
+                </div>
+            </div>>
+        </li>
+        }
+    </ul>
+</div>
