@@ -23,6 +23,8 @@
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Category> Categories { get; set; }

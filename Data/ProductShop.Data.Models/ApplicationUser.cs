@@ -27,9 +27,6 @@
         [Required]
         public string LastName { get; set; }
 
-        [Required]
-        public string Phone { get; set; }
-
         public DateTime BirthDay { get; set; }
 
         public ICollection<Product> Products { get; set; }
