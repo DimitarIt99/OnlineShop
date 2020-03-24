@@ -63,6 +63,9 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
+            builder.Entity<Category>()
+                .HasIndex(c => c.Name);
+
             this.ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

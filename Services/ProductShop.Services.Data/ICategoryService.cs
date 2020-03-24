@@ -9,5 +9,11 @@
         IEnumerable<CategoryByNameAndPicture> All();
 
         IEnumerable<CategoryNameViewModel> AllCategoryNames();
+
+        bool CategoryExist(string name);
+
+        int CategoryIdByName(string name);
+
+        NameAndSubcategoriesNamesViewModel SubcateriesNames(string categoryName);
     }
 }

@@ -18,9 +18,16 @@
             return this.View(this.service.All());
         }
 
-        public IActionResult Details(string name)
+        public IActionResult Details(CategoryNameViewModel model)
         {
-            return this.View(name);
+            if (!this.service.CategoryExist(model.Name))
+            {
+                return this.View("ErrorCategory");
+            }
+
+            var subcategoryModel = this.service.SubcateriesNames(model.Name);
+
+            return this.View(subcategoryModel);
         }
     }
 }

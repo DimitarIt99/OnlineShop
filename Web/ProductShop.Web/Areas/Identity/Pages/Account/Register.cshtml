@@ -42,6 +42,40 @@
                 <input asp-for="Input.LastName" class="form-control" />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
+
+            <span class="form-group">
+                <label asp-for="Input.Day"></label>
+                <select asp-for="Input.Day">
+                    @for (int i = 1; i <= 31; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                <input asp-for="Input.Day" class="dropdown-menu" />
+                <span asp-validation-for="Input.Day" class="text-danger"></span>
+            </span>
+            <span class="form-group">
+                <label asp-for="Input.Month"></label>
+                <select asp-for="Input.Month">
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                <input asp-for="Input.Month" class="dropdown-menu" />
+                <span asp-validation-for="Input.Month" class="text-danger"></span>
+            </span>
+            <span class="form-group">
+                <label asp-for="Input.Year"></label>
+                <select asp-for="Input.Year">
+                    @for (int i = 1900; i <= 2020; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                <input asp-for="Input.Year" class="dropdown-menu" />
+                <span asp-validation-for="Input.Year" class="text-danger"></span>
+            </span>
             <div class="form-group">
                 <label asp-for="Input.Phone"></label>
                 <input asp-for="Input.Phone" class="form-control" />

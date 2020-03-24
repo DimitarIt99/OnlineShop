@@ -1,18 +1,23 @@
-﻿<div class="list-group">
+﻿@model System.Collections.Generic.IEnumerable<ProductShop.Web.ViewModels.Category.CategoryByNameAndPicture>
+
+<div class="list-group">
     <ul style="list-style-type: none">
         @foreach (var viewModel in Model)
         {
-        <li>
-            <div style="display: inline-block">
+            <li>
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="@viewModel.ImageUrl" alt="Card image cap">
+                    <img class="card-img-
+                         
+                         
+                         
+                         
+                         p" src="@viewModel.ImageUrl" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">@viewModel.Description</p>
-                        <a asp-area="" asp-controller="Category" asp-action="Details" class="btn btn-secondary">@viewModel.Name</a>
+                        <a asp-area="" asp-controller="Category" asp-action="Details" asp-route-name="@viewModel.Name" class="btn btn-secondary">@viewModel.Name</a>
                     </div>
                 </div>
-            </div>>
-        </li>
+            </li>
         }
     </ul>
 </div>

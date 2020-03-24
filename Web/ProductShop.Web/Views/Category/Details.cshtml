@@ -1,1 +1,17 @@
-﻿<h1>Welcome to @Model category</h1>
+﻿@model ProductShop.Web.ViewModels.Category.NameAndSubcategoriesNamesViewModel
+
+<h1>Welcome to @Model.Name category</h1>
+<div class="btn-group">
+    @foreach (var sub in Model.Subcategories)
+    {
+        <button class="btn-primary" style="color:lightgreen">@sub.Name</button>
+
+    }
+</div>
+<div class="btn-group">
+    @foreach (var sub in Model.Subcategories)
+    {
+        <button class="btn-danger" style="color:cadetblue">@sub.Name</button>
+
+    }
+</div>
