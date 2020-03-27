@@ -47,4 +47,9 @@
     <ProjectReference Include="..\ProductShop.Web.Infrastructure\ProductShop.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\ProductShop.Web.ViewModels\ProductShop.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Subcategory\" />
+  </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
     using ProductShop.Services.Data;
     using ProductShop.Web.ViewModels.Category;
 
-    public class CategoryController : BaseController
+    public class CategoryController : Controller
     {
         private readonly ICategoryService service;
 
@@ -31,3 +31,4 @@
         }
     }
 }
+

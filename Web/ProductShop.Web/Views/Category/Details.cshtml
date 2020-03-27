@@ -7,12 +7,12 @@
         @foreach (var sub in Model.Subcategories)
         {
             <span style="font-size: 24px; color: black">
-                <strong><span>@sub.Name</span></strong>
-
                 <span style="font-size: 24px;">
 
                     <a style="color: lightslategrey" asp-area="" asp-controller="Home" asp-action="Privacy"> <i class="fas fa-th style=" color: tomato""></i></a>
                 </span>
+
+                <strong><span>@sub.Name</span></strong>
             </span>
         }
     </span>
