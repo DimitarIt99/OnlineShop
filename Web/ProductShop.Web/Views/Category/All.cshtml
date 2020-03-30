@@ -1,18 +1,18 @@
 ﻿@model System.Collections.Generic.IEnumerable<ProductShop.Web.ViewModels.Category.CategoryByNameAndPicture>
-
-<div class="list-group">
-    <ul style="list-style-type: none">
-        @foreach (var viewModel in Model)
-        {
-            <li>
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="@viewModel.ImageUrl" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">@viewModel.Description</p>
-                        <a asp-area="" asp-controller="Category" asp-action="Details" asp-route-name="@viewModel.Name" class="btn btn-secondary">@viewModel.Name</a>
-                    </div>
-                </div>
-            </li>
-        }
-    </ul>
+<div class="row">
+    @foreach (var category in Model)
+    {
+        <div class="col-md-4 media">
+            <img src="@category.ImageUrl" width="100" class="mr-3" alt="Title">
+            <div class="media-body">
+                <h5 class="mt-0">
+                    <a asp-area="" asp-controller="Category" asp-action="Details" asp-route-name="@category.Name">
+                        @category.Name (@category.ProductsCount) 
+                        @*to do*@
+                    </a>
+                </h5>
+                @category.Description
+            </div>
+        </div>
+    }
 </div>
