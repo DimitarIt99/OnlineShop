@@ -4,7 +4,7 @@
 
     using ProductShop.Web.ViewModels.Category;
 
-    public interface ICategoryService
+    public interface ICategoriesService
     {
         IEnumerable<CategoryByNameAndPicture> All();
 

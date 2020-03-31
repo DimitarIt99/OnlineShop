@@ -9,11 +9,11 @@
     using ProductShop.Web.ViewModels.Category;
     using ProductShop.Web.ViewModels.Subcategories;
 
-    public class CategoryService : ICategoryService
+    public class CategoriesService : ICategoriesService
     {
         private readonly IDeletableEntityRepository<Category> repository;
 
-        public CategoryService(IDeletableEntityRepository<Category> repository)
+        public CategoriesService(IDeletableEntityRepository<Category> repository)
         {
             this.repository = repository;
         }

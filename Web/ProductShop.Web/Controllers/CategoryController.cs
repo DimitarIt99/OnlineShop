@@ -6,9 +6,9 @@
 
     public class CategoryController : Controller
     {
-        private readonly ICategoryService service;
+        private readonly ICategoriesService service;
 
-        public CategoryController(ICategoryService service)
+        public CategoryController(ICategoriesService service)
         {
             this.service = service;
         }

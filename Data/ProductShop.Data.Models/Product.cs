@@ -38,7 +38,7 @@
 
         public Category Category { get; set; }
 
-        public int SubcategoryId { get; set; }
+        public int? SubcategoryId { get; set; }
 
         public Subcategory Subcategory { get; set; }
 

@@ -1,22 +1,27 @@
 ﻿@model ProductShop.Web.ViewModels.Category.NameAndSubcategoriesNamesViewModel
 
 <h1>@Model.Name</h1>
-<h4>Subcategories: </h4>
-<div>
-    <span class="list-group-item">
-        @foreach (var sub in Model.Subcategories)
-        {
-            <span style="font-size: 24px; color: black">
-                <span style="font-size: 24px;">
+@if (Model.Subcategories.Count() > 0)
+{
 
-                    <a style="color: lightslategrey" asp-area="" asp-controller="Home" asp-action="Privacy"> <i class="fas fa-th style=" color: tomato""></i></a>
+
+    <h4>Subcategories: </h4>
+    <div>
+        <span class="list-group-item">
+            @foreach (var sub in Model.Subcategories)
+            {
+                <span style="font-size: 24px; color: black">
+                    <span style="font-size: 24px;">
+
+                        <a style="color: lightslategrey" asp-area="" asp-controller="Home" asp-action="Privacy"> <i class="fas fa-th style=" color: tomato""></i></a>
+                    </span>
+
+                    <strong><span>@sub.Name</span></strong>
                 </span>
-
-                <strong><span>@sub.Name</span></strong>
-            </span>
-        }
-    </span>
-</div>
+            }
+        </span>
+    </div>
+}
 
 <div class="container py-5">
 
@@ -49,7 +54,7 @@
                     <!-- End -->
                 </li>
             </ul>
-                <!-- End -->
+            <!-- End -->
         </div>
     </div>
 </div>
