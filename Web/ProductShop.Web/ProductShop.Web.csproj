@@ -49,6 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Subcategory\" />
+    <Folder Include="Views\Subcategories\" />
   </ItemGroup>
 </Project>

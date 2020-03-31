@@ -6,6 +6,7 @@
     using ProductShop.Data.Common.Repositories;
     using ProductShop.Data.Models;
     using ProductShop.Services.Mapping;
+    using ProductShop.Web.ViewModels.Categories;
     using ProductShop.Web.ViewModels.Category;
     using ProductShop.Web.ViewModels.Subcategories;
 
@@ -51,6 +52,13 @@
                     .ToList(),
                 })
                 .FirstOrDefault();
+        }
+
+        public IEnumerable<CategoriesAndSubcategoriesByNameAndId> AllCategoriesAndSubacetoriesByName()
+        {
+            return this.repository.All()
+                .To<CategoriesAndSubcategoriesByNameAndId>()
+                .ToList();
         }
     }
 }

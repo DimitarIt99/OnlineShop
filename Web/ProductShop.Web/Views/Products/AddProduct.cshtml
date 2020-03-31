@@ -1,0 +1,10 @@
+﻿@model System.Collections.Generic.IEnumerable<ProductShop.Web.ViewModels.Categories.CategoriesAndSubcategoriesByNameAndId>
+
+@foreach (var category in Model)
+{
+    <h1>@category.Name</h1>
+    foreach (var subacategory in category.Subcategories)
+    {
+        <h4>@subacategory.Name</h4>
+    }
+}

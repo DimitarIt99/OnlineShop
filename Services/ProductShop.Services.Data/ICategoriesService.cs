@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
 
+    using ProductShop.Web.ViewModels.Categories;
     using ProductShop.Web.ViewModels.Category;
 
     public interface ICategoriesService
@@ -15,5 +16,7 @@
         int CategoryIdByName(string name);
 
         NameAndSubcategoriesNamesViewModel SubcateriesNames(string categoryName);
+
+        public IEnumerable<CategoriesAndSubcategoriesByNameAndId> AllCategoriesAndSubacetoriesByName();
     }
 }

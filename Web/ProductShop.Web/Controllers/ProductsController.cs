@@ -11,28 +11,31 @@
     [Authorize]
     public class ProductsController : Controller
     {
-        private readonly IProductsService service;
+        private readonly IProductsService productsService;
+        private readonly ICategoriesService categoriesService;
 
-        public ProductsController(IProductsService service)
+        public ProductsController(IProductsService productsService, ICategoriesService categoriesService)
         {
-            this.service = service;
+            this.productsService = productsService;
+            this.categoriesService = categoriesService;
         }
 
-        public IActionResult Add()
+        public IActionResult AddProduct()
         {
-            return this.View();
+            var categories = this.categoriesService.AllCategoriesAndSubacetoriesByName();
+            return this.View(categories);
         }
 
         [HttpPost]
-        public IActionResult Add(CreateProductModel model)
+        public IActionResult AddProduct(CreateProductModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            model.UserId = this.service.GetUserId(this.User.Identity.Name);
-            this.service.CreateProduct(model);
+            model.UserId = this.productsService.GetUserId(this.User.Identity.Name);
+            this.productsService.CreateProduct(model);
 
             return this.Redirect("Home/Privacy");
         }
