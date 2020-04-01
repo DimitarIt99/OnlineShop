@@ -1,13 +1,6 @@
 ﻿@model ProductShop.Web.ViewModels.Products.CreateProductModel
-@*foreach (var category in Model)
-    {
-        <h1>category.Name</h1>
-        foreach (var subacategory in category.Subcategories)
-        {
-            <h4>subacategory.Name</h4>
-        }
-    }
-*@
+
+@inject ProductShop.Services.Data.ICategoriesService categoriesService
     <form asp-route-returnUrl="Privacy" method="post">
         <h4>Add a new product.</h4>
         <hr />
