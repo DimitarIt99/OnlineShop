@@ -20,6 +20,6 @@
 
         public int CategoryId { get; set; }
 
-        public int SubcategoryId { get; set; }
+        public int? SubcategoryId { get; set; }
     }
 }

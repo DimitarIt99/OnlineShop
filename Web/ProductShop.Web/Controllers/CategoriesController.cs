@@ -4,11 +4,11 @@
     using ProductShop.Services.Data;
     using ProductShop.Web.ViewModels.Category;
 
-    public class CategoryController : Controller
+    public class CategoriesController : Controller
     {
         private readonly ICategoriesService service;
 
-        public CategoryController(ICategoriesService service)
+        public CategoriesController(ICategoriesService service)
         {
             this.service = service;
         }

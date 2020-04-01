@@ -40,7 +40,7 @@
 
             await this.productRepository.AddAsync(product);
             await this.productRepository.SaveChangesAsync();
-            return product.Id;
+            return 3;
         }
     }
 }

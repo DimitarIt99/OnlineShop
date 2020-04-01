@@ -23,21 +23,26 @@
         public IActionResult AddProduct()
         {
             var categories = this.categoriesService.AllCategoriesAndSubacetoriesByName();
-            return this.View(categories);
+            return this.View();
         }
 
         [HttpPost]
-        public IActionResult AddProduct(CreateProductModel model)
+        public async Task<IActionResult> AddProduct(CreateProductModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            model.UserId = this.productsService.GetUserId(this.User.Identity.Name);
-            this.productsService.CreateProduct(model);
+            // model.UserId = this.productsService.GetUserId(this.User.Identity.Name);
+            await this.productsService.CreateProduct(model);
 
-            return this.Redirect("Home/Privacy");
+            return this.RedirectToAction(nameof(this.Details));
+        }
+
+        public IActionResult Details()
+        {
+            return this.View();
         }
     }
 }
