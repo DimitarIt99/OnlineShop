@@ -8,6 +8,7 @@
     using ProductShop.Services.Mapping;
     using ProductShop.Web.ViewModels.Categories;
     using ProductShop.Web.ViewModels.Category;
+    using ProductShop.Web.ViewModels.Products;
     using ProductShop.Web.ViewModels.Subcategories;
 
     public class CategoriesService : ICategoriesService
@@ -48,6 +49,17 @@
                     .Select(s => new SubcategoryNameViewModel
                     {
                         Name = s.Name,
+                    })
+                    .ToList(),
+                    Products = a.Products
+                    .Where(s => s.CategoryId == categoryId)
+                    .Select(s => new SummaryProductModel
+                    {
+                        Id = s.Id,
+                        Description = s.Description,
+                        ImageUrl = s.ImageUrl,
+                        Name = s.Name,
+                        Price = s.Price,
                     })
                     .ToList(),
                 })
