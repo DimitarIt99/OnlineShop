@@ -1,10 +1,12 @@
 ﻿namespace ProductShop.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
     using ProductShop.Data.Common.Repositories;
     using ProductShop.Data.Models;
+    using ProductShop.Services.Mapping;
     using ProductShop.Web.ViewModels.Products;
 
     public class ProductsService : IProductsService
@@ -26,7 +28,6 @@
 
         public async Task<int> CreateProduct(CreateProductModel model)
         {
-
             var idTokens = model.CategoryAndSubcategoryId
                 .Split(":", System.StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
@@ -53,6 +54,27 @@
             await this.productRepository.AddAsync(product);
             await this.productRepository.SaveChangesAsync();
             return product.Id;
+        }
+
+        public DetailsModel ProductDetails(object id)
+        {
+            var inputId = Convert.ToInt32(id);
+
+            var res = this.productRepository
+                .All()
+                .Where(a => a.Id == inputId)
+                .Select(a => new DetailsModel
+                {
+                    Id = a.Id,
+                    Descrption = a.Description,
+                    ImageUrl = a.ImageUrl,
+                    Name = a.Name,
+                    Price = a.Price,
+                    Quantity = a.Quantity,
+                    UserUserName = a.User.UserName,
+                })
+                .FirstOrDefault();
+            return res;
         }
     }
 }

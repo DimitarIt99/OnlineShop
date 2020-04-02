@@ -13,12 +13,11 @@
     <div class="form-group">
         <label asp-for="@Model.ImageUrl"></label>
         <input asp-for="@Model.ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.Price"></label>
-        <input asp-for="@Model.Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
+        <input type="number" asp-for="@Model.Price" class="form-control" />
     </div>
     <texta class="form-group">
 

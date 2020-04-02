@@ -22,7 +22,6 @@
 
         public string Description { get; set; }
 
-        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
         [Range(1, int.MaxValue)]

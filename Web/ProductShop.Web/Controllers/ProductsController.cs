@@ -35,14 +35,14 @@
             }
 
             // model.UserId = this.productsService.GetUserId(this.User.Identity.Name);
-            await this.productsService.CreateProduct(model);
-
-            return this.RedirectToAction(nameof(this.Details));
+            var id = await this.productsService.CreateProduct(model);
+            return this.RedirectToAction(nameof(this.Details),  new { id });
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return this.View();
+            var fondProduct = this.productsService.ProductDetails(id);
+            return this.View(fondProduct);
         }
     }
 }

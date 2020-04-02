@@ -9,5 +9,7 @@
         public Task<int> CreateProduct(CreateProductModel model);
 
         public string GetUserId(string userName);
+
+        public DetailsModel ProductDetails(object id);
     }
 }
