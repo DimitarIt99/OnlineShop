@@ -1,6 +1,7 @@
 ﻿namespace ProductShop.Services.Data
 {
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -39,10 +40,11 @@
                 subcategoryId = idTokens[1];
             }
 
+            var price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
             var product = new Product
             {
                 Name = model.Name,
-                Price = model.Price,
+                Price = price,
                 Quantity = model.Quantity,
                 Description = model.Description,
                 ImageUrl = model.ImageUrl,
