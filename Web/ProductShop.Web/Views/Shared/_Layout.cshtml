@@ -30,21 +30,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item" style="margin: 6px">
+                            <button class="btn btn-secondary">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </button>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                        <li class="nav-item" style="margin: 6px">
+                            <button class="btn btn-secondary">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="AddProduct">Add a product</a>
+                            </button>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="AddProduct">Add a product</a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="margin: 6px">
                             <div class="btn-group">
-                                <button class="btn btn-secondary btn-lg" type="button">
+                                <button class="btn btn-secondary" type="button">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="All">
                                         Categories
                                     </a>
