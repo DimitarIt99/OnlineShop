@@ -26,6 +26,18 @@
 
         public async Task<int> CreateProduct(CreateProductModel model)
         {
+
+            var idTokens = model.CategoryAndSubcategoryId
+                .Split(":", System.StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+            var categoryId = idTokens[0];
+            int? subcategoryId = null;
+            if (idTokens.Length == 2)
+            {
+                subcategoryId = idTokens[1];
+            }
+
             var product = new Product
             {
                 Name = model.Name,
@@ -33,8 +45,8 @@
                 Quantity = model.Quantity,
                 Description = model.Description,
                 ImageUrl = model.ImageUrl,
-                CategoryId = model.CategoryId,
-                SubcategoryId = model.SubcategoryId,
+                CategoryId = categoryId,
+                SubcategoryId = subcategoryId,
                 UserId = model.UserId,
             };
 

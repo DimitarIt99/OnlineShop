@@ -1,40 +1,60 @@
 ﻿@model ProductShop.Web.ViewModels.Products.CreateProductModel
 
 @inject ProductShop.Services.Data.ICategoriesService categoriesService
-    <form asp-route-returnUrl="Privacy" method="post">
-        <h4>Add a new product.</h4>
-        <hr />
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="@Model.Name"></label>
-            <input asp-for="@Model.Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.ImageUrl"></label>
-            <input asp-for="@Model.ImageUrl" class="form-control" />
-            <span asp-validation-for="ImageUrl" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Price"></label>
-            <input asp-for="@Model.Price" class="form-control" />
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
-        <texta class="form-group">
+<form asp-route-returnUrl="Privacy" method="post">
+    <h4>Add a new product.</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <input asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ImageUrl"></label>
+        <input asp-for="@Model.ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Price"></label>
+        <input asp-for="@Model.Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <texta class="form-group">
 
-            <div><label asp-for="@Model.Description"></label></div>
-            <textarea asp-for="@Model.Description" rows="10" cols="50"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </texta>
-        <div class="form-group">
-            <label asp-for="@Model.Quantity"></label>
-            <input asp-for="@Model.Quantity" class="form-control" />
-            <span asp-validation-for="Quantity" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.CategoryId"></label>
-            <input asp-for="@Model.CategoryId" class="form-control" />
-            <span asp-validation-for="CategoryId" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+        <div><label asp-for="@Model.Description"></label></div>
+        <textarea asp-for="@Model.Description" rows="10" cols="50"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </texta>
+    <div class="form-group">
+        <label asp-for="@Model.Quantity"></label>
+        <input asp-for="@Model.Quantity" class="form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.CategoryAndSubcategoryId"></label>
+        <select asp-for="@Model.CategoryAndSubcategoryId">
+            @{var categoryCount = 1;}
+            @foreach (var category in categoriesService.AllCategoriesAndSubacetoriesByName())
+            {
+
+
+                <option value="@category.Id">@categoryCount.@category.Name</option>
+                var subcategoryCount = 1;
+                @foreach (var subcategory in category.Subcategories)
+                {
+
+
+                    <option value="@category.Id:@subcategory.Id">@categoryCount.@subcategoryCount.@subcategory.Name</option>
+
+                    { subcategoryCount = subcategoryCount + 1; }
+
+                }
+                { categoryCount = categoryCount + 1; }
+            }
+        </select>
+        <input asp-for="@Model.CategoryAndSubcategoryId" class="dropdown-menu" />
+        <span asp-validation-for="@Model.CategoryAndSubcategoryId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
