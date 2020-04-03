@@ -17,6 +17,8 @@
 
         public int PagesCount { get; set; }
 
+        public int CurrentPage { get; set; }
+
         public IEnumerable<SubcategoryNameViewModel> Subcategories { get; set; }
 
         public IEnumerable<SummaryProductModel> Products { get; set; }
