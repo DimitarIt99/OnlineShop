@@ -78,5 +78,10 @@
                 .FirstOrDefault();
             return res;
         }
+
+        public int GetCountByCategoryName(string name)
+            => this.productRepository.All()
+            .Where(a => a.Category.Name == name)
+            .Count();
     }
 }

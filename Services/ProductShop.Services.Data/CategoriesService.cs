@@ -35,11 +35,11 @@
             .Select(a => a.Id)
             .FirstOrDefault();
 
-        public NameAndSubcategoriesNamesViewModel SubcateriesNames(string categoryName)
+        public NameAndSubcategoriesNamesViewModel SubcateriesNames(string categoryName, int? take = null, int skip = 0)
         {
             var categoryId = this.CategoryIdByName(categoryName);
 
-            return this.repository.All()
+            var result = this.repository.All()
                 .Where(a => a.Id == categoryId)
                 .Select(a => new NameAndSubcategoriesNamesViewModel
                 {
@@ -49,8 +49,7 @@
                     .Select(s => new SubcategoryNameViewModel
                     {
                         Name = s.Name,
-                    })
-                    .ToList(),
+                    }),
                     Products = a.Products
                     .Where(s => s.CategoryId == categoryId)
                     .Select(s => new SummaryProductModel
@@ -61,9 +60,19 @@
                         Name = s.Name,
                         Price = s.Price,
                     })
+                    .Skip(skip)
+                    .Take(take.Value)
                     .ToList(),
                 })
                 .FirstOrDefault();
+
+            //if (take.HasValue)
+            //{
+            //    result
+            //        .Select(a => a.Products.Take(take.Value));
+            //}
+
+            return result;//.FirstOrDefault();
         }
 
         public IEnumerable<CategoriesAndSubcategoriesByNameAndId> AllCategoriesAndSubacetoriesByName()

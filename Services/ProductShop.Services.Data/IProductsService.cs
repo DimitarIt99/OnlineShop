@@ -11,5 +11,7 @@
         public string GetUserId(string userName);
 
         public DetailsModel ProductDetails(object id);
+
+        public int GetCountByCategoryName(string name);
     }
 }

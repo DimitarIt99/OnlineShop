@@ -15,6 +15,8 @@
 
         public string Name { get; set; }
 
+        public int PagesCount { get; set; }
+
         public IEnumerable<SubcategoryNameViewModel> Subcategories { get; set; }
 
         public IEnumerable<SummaryProductModel> Products { get; set; }
