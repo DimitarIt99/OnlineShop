@@ -31,6 +31,9 @@
                             Add to wishlist
                         </button>
                     </div>
+                    <div class="btn-group">
+                        <a asp-controller="Comments" asp-action="Create" asp-route-productId="@Model.Id" class="btn btn-warning">Comment</a>
+                    </div>
                 </div>
             </div>
         </div>

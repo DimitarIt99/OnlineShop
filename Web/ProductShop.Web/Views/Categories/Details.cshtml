@@ -23,95 +23,109 @@
     </div>
 }
 
-<div class="container py-5">
+@if (this.Model.Products.Count() != 0)
+{
+    <div class="container py-5">
 
-    <!-- For demo purpose -->
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <!-- For demo purpose -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
 
-            <!-- List group-->
-            <ul class="list-group shadow">
+                <!-- List group-->
+                <ul class="list-group shadow">
 
-                <!-- list group item-->
-                <li class="list-group-item">
-                    <!-- Custom content-->
-                    @foreach (var product in Model.Products)
-                    {
-                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                            <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">
-                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
-                                </h5>
-                                <p class="font-italic text-muted mb-0 small">@product.Description</p>
-                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">$@product.Price</h6>
-                                    <button class="btn btn-primary">
-                                        <a style="color: snow" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">See Details</a>
-                                    </button>
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                    </ul>
-                                </div>
-                            </div><img src="@product.ImageUrl" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                        </div>
-                    }
-                    <!-- End -->
-                </li>
-            </ul>
-            <!-- End -->
+                    <!-- list group item-->
+                    <li class="list-group-item">
+                        <!-- Custom content-->
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body order-2 order-lg-1">
+                                    <h5 class="mt-0 font-weight-bold mb-2">
+                                        <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                                    </h5>
+                                    <p class="font-italic text-muted mb-0 small">@product.Description</p>
+                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h6 class="font-weight-bold my-2">$@product.Price</h6>
+                                        <button class="btn btn-primary">
+                                            <a style="color: snow" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">See Details</a>
+                                        </button>
+                                        <ul class="list-inline small">
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                        </ul>
+                                    </div>
+                                </div><img src="@product.ImageUrl" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                            </div>
+                        }
+                        <!-- End -->
+                    </li>
+                </ul>
+                <!-- End -->
+            </div>
         </div>
     </div>
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            @if (this.Model.CurrentPage == 1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Categories"
+                       asp-action="Details"
+                       asp-route-name="@this.Model.Name"
+                       asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.PagesCount; i++)
+            {
+                var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+
+                <li class="page-item @active">
+                    <a class="page-link"
+                       asp-controller="Categories"
+                       asp-action="Details"
+                       asp-route-name="@this.Model.Name"
+                       asp-route-page="@i">@i</a>
+                </li>
+            }
+            @if (this.Model.CurrentPage == this.Model.PagesCount)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Categories"
+                       asp-action="Details"
+                       asp-route-name="@this.Model.Name"
+                       asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+else
+{
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="https://first1k.eu/wp-content/uploads/2018/09/Sorry.jpg" alt="Card image cap">
+    <div class="card-body">
+        <p class="card-text">Sorry this category does not seem to have products yet!</p>
+        <p class="card-text">Click the button bellow to see all categories!</p>
+    </div>
+    <a asp-controller="Categories" asp-action="All" class="btn btn-primary">Categories</a>
 </div>
-<nav aria-label="...">
-    <ul class="pagination justify-content-center">
-        @if (this.Model.CurrentPage == 1)
-        {
-            <li class="page-item disabled">
-                <a class="page-link" href="#">Previous</a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link"
-                   asp-controller="Categories"
-                   asp-action="Details"
-                   asp-route-name="@this.Model.Name"
-                   asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
-            </li>
-        }
-
-        @for (int i = 1; i <= Model.PagesCount; i++)
-        {
-            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
-
-            <li class="page-item @active">
-                <a class="page-link"
-                   asp-controller="Categories"
-                   asp-action="Details"
-                   asp-route-name="@this.Model.Name"
-                   asp-route-page="@i">@i</a>
-            </li>
-        }
-        @if (this.Model.CurrentPage == this.Model.PagesCount)
-        {
-            <li class="page-item disabled">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link"
-                   asp-controller="Categories"
-                   asp-action="Details"
-                   asp-route-name="@this.Model.Name"
-                   asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
-            </li>
-        }
-    </ul>
-</nav>
+}

@@ -1,0 +1,12 @@
+﻿@model ProductShop.Web.ViewModels.Comments.CreateCommentsViewModel
+
+<form method="post">
+    <div>
+        <texta class="form-group">
+            <div><label asp-for="@Model.Content"></label></div>
+            <textarea asp-for="@Model.Content" rows="10" cols="50"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </texta>
+    </div>
+    <button type="submit" class="btn btn-primary">Comment</button>
+</form>
