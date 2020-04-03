@@ -8,6 +8,7 @@
     using ProductShop.Data.Common.Repositories;
     using ProductShop.Data.Models;
     using ProductShop.Services.Mapping;
+    using ProductShop.Web.ViewModels.Comments;
     using ProductShop.Web.ViewModels.Products;
 
     public class ProductsService : IProductsService
@@ -74,6 +75,15 @@
                     Price = a.Price,
                     Quantity = a.Quantity,
                     UserUserName = a.User.UserName,
+                    Comments = a.Comments
+                    .Where(s => s.ProductId == inputId)
+                    .Select(s => new CommentsViewModel
+                    {
+                        UserName = s.User.UserName,
+                        Content = s.Content,
+                        CreatedOn = s.CreatedOn,
+                    })
+                    .ToList(),
                 })
                 .FirstOrDefault();
             return res;
