@@ -1,0 +1,35 @@
+﻿@model ProductShop.Web.ViewModels.NavBar.NavBarViewModel
+
+<li class="nav-item" style="margin: 6px">
+    <button class="btn btn-secondary">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Model.Privacy</a>
+    </button>
+</li>
+<li class="nav-item" style="margin: 6px">
+    <button class="btn btn-secondary">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="AddProduct">@Model.AddProduct</a>
+    </button>
+</li>
+<li class="nav-item" style="margin: 6px">
+    <div class="btn-group">
+        <button class="btn btn-secondary" type="button">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="All">
+                @Model.Category
+            </a>
+        </button>
+        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+            @foreach (var category in Model.Categories)
+            {
+                <span class="dropdown-item" type="button">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-name="@category.Name">
+                        @category.Name
+                    </a>
+                </span>
+            }
+        </div>
+    </div>
+</li>
+
