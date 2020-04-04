@@ -25,23 +25,32 @@
 
             if (this.service.AlredyExists(userId, productId))
             {
-                return this.RedirectToAction();
+                return this.BadRequest();
             }
 
-            return this.RedirectToAction("All");
-
+            return this.RedirectToAction("All", new { userId });
         }
 
         public IActionResult All()
         {
-            return this.View();
+            var userId = this.manager.GetUserId(this.User);
+
+            var wishedProducts = this.service.All(userId);
+
+            return this.View(wishedProducts);
         }
 
         public IActionResult Remove(int productId)
         {
+            var userId = this.manager.GetUserId(this.User);
+            if (!this.service.AlredyExists(userId, productId))
+            {
+                return this.BadRequest();
+            }
 
+            this.service.Remove(userId, productId);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction("All", new { userId });
         }
     }
 }
