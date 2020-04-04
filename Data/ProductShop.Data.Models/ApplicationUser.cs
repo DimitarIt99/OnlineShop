@@ -20,6 +20,7 @@
             this.Products = new HashSet<Product>();
             this.Ratings = new HashSet<Rating>();
             this.Votes = new HashSet<Vote>();
+            this.Wishes = new HashSet<Wish>();
         }
 
         [Required]
@@ -39,6 +40,8 @@
         public ICollection<Rating> Ratings { get; set; }
 
         public ICollection<Vote> Votes { get; set; }
+
+        public ICollection<Wish> Wishes { get; set; }
 
         // To do Add Role
         // public ApplicationRole Role { get; set; }

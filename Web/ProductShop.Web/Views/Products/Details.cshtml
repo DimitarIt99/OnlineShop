@@ -60,10 +60,10 @@
                         <p>
                             <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
                             <a class="float-right btn text-white btn-danger" onclick="sendVote(@comment.Id, false)"> <i class="fa fa-thumbs-down"></i> Dislike</a>
+                            <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
                             <span id="votesCount">
                                 @comment.Votes
                             </span>
-                            <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
                         </p>
                     </div>
                 </div>

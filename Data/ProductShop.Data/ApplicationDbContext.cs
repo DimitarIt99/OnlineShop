@@ -39,6 +39,8 @@
 
         public DbSet<Vote> Votes { get; set; }
 
+        public DbSet<Wish> Wishes { get; set; }
+
         public DbSet<Subcategory> Subcategories { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

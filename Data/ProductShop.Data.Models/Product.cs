@@ -12,6 +12,7 @@
             this.Comments = new HashSet<Comment>();
             this.Orders = new HashSet<Order>();
             this.Ratings = new HashSet<Rating>();
+            this.Wishes = new HashSet<Wish>();
         }
 
         [Required]
@@ -31,8 +32,6 @@
 
         public ApplicationUser User { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
-
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
@@ -44,5 +43,9 @@
         public ICollection<Order> Orders { get; set; }
 
         public ICollection<Rating> Ratings { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Wish> Wishes { get; set; }
     }
 }
