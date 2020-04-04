@@ -20,16 +20,18 @@
         <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only">Toggle Dropdown</span>
         </button>
-        <div class="dropdown-menu">
-            @foreach (var category in Model.Categories)
-            {
-                <span class="dropdown-item" type="button">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-name="@category.Name">
-                        @category.Name
-                    </a>
-                </span>
-            }
-        </div>
+        <cache expires-after="@TimeSpan.FromHours(3)">
+            <div class="dropdown-menu">
+                @foreach (var category in Model.Categories)
+                {
+                    <span class="dropdown-item" type="button">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-name="@category.Name">
+                            @category.Name
+                        </a>
+                    </span>
+                }
+            </div>
+        </cache>
     </div>
 </li>
 
