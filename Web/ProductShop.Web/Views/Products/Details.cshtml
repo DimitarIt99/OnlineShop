@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<hr/>
+<hr />
 <div class="container">
 
     @foreach (var comment in Model.Comments)
@@ -52,14 +52,18 @@
                     </div>
                     <div class="col-md-10">
                         <p>
-                            <a class="float-left" ><strong>@comment.UserName</strong></a>
+                            <a class="float-left"><strong>@comment.UserName</strong></a>
                         </p>
                         <div class="clearfix"></div>
                         <p>@comment.Content</p>
+                        <form id="votesForm" method="post"></form>
                         <p>
                             <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-                            <a class="float-right btn text-white btn-danger"> <i class="fa fa-thumbs-down"></i> Dislike</a>
-                            <a class="float-right btn text-white btn-primary"> <i class="fa fa-thumbs-up"></i> Like</a>
+                            <a class="float-right btn text-white btn-danger" onclick="sendVote(@comment.Id, false)"> <i class="fa fa-thumbs-down"></i> Dislike</a>
+                            <span id="votesCount">
+                                @comment.Votes
+                            </span>
+                            <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
                         </p>
                     </div>
                 </div>
@@ -67,3 +71,23 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <script>
+        function sendVote(commentId, isUpVote) {
+            var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+            var json = { commentId: commentId, isUpVote: isUpVote };
+            $.ajax({
+                url: "/api/votes",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    $("#votesCount").html(data.votesCount);
+                }
+            });
+        }
+    </script>
+}

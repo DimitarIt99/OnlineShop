@@ -66,22 +66,25 @@
             var res = this.productRepository
                 .All()
                 .Where(a => a.Id == inputId)
-                .Select(a => new DetailsModel
+                .Select(p => new DetailsModel
                 {
-                    Id = a.Id,
-                    Descrption = a.Description,
-                    ImageUrl = a.ImageUrl,
-                    Name = a.Name,
-                    Price = a.Price,
-                    Quantity = a.Quantity,
-                    UserUserName = a.User.UserName,
-                    Comments = a.Comments
-                    .Where(s => s.ProductId == inputId)
-                    .Select(s => new CommentsViewModel
+                    Id = p.Id,
+                    Descrption = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Quantity = p.Quantity,
+                    UserUserName = p.User.UserName,
+                    Comments = p.Comments
+                    .Where(c => c.ProductId == inputId)
+                    .Select(c => new CommentsViewModel
                     {
-                        UserName = s.User.UserName,
-                        Content = s.Content,
-                        CreatedOn = s.CreatedOn,
+                        Id = c.Id,
+                        UserName = c.User.UserName,
+                        Content = c.Content,
+                        CreatedOn = c.CreatedOn,
+                        Votes = c.Votes
+                        .Sum(v => (int)v.Type),
                     })
                     .ToList(),
                 })

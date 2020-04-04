@@ -27,6 +27,8 @@
 
         public string UserUserName { get; set; }
 
+        public int VotesCount { get; set; }
+
         public ICollection<CommentsViewModel> Comments { get; set; }
     }
 }
