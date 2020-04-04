@@ -1,5 +1,7 @@
 ﻿namespace ProductShop.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -8,18 +10,18 @@
     using ProductShop.Services.Data;
 
     [Authorize]
-    public class WishesCotroller : Controller
+    public class WishesController : Controller
     {
         private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> manager;
         private readonly IWishesService service;
 
-        public WishesCotroller(UserManager<ApplicationUser> manager, IWishesService service)
+        public WishesController(UserManager<ApplicationUser> manager, IWishesService service)
         {
             this.manager = manager;
             this.service = service;
         }
 
-        public IActionResult Add(int productId)
+        public async Task<IActionResult> Add(int productId)
         {
             var userId = this.manager.GetUserId(this.User);
 
@@ -27,6 +29,8 @@
             {
                 return this.BadRequest();
             }
+
+            await this.service.AddAsync(userId, productId);
 
             return this.RedirectToAction("All", new { userId });
         }

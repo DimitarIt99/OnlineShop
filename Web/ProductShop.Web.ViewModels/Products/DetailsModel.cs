@@ -29,6 +29,8 @@
 
         public int VotesCount { get; set; }
 
+        public bool IsFavorid { get; set; }
+
         public ICollection<CommentsViewModel> Comments { get; set; }
     }
 }

@@ -27,9 +27,18 @@
                         </button>
                     </div>
                     <div class="btn-group wishlist">
-                        <button type="button" class="btn btn-danger">
-                            Add to wishlist
-                        </button>
+                        @if (Model.IsFavorid)
+                        {
+                            <a class="btn btn-danger"asp-area="" asp-controller="Wishes" asp-action="Wishes" asp-route-id="@Model.Id">
+                                Remove from wishlist
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-danger"asp-area="" asp-controller="Wishes" asp-action="Add" asp-route-productId="@Model.Id">
+                                Add to wishlist
+                            </a>
+                        }
                     </div>
                     <div class="btn-group">
                         <a asp-controller="Comments" asp-action="Create" asp-route-productId="@Model.Id" class="btn btn-warning">Comment</a>
