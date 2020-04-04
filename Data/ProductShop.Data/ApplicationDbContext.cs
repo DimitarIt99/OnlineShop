@@ -70,6 +70,9 @@
             builder.Entity<Category>()
                 .HasIndex(c => c.Name);
 
+            builder.Entity<Subcategory>()
+                .HasIndex(sc => sc.Name);
+
             this.ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
