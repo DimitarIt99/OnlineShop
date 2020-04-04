@@ -37,6 +37,8 @@
 
         public DbSet<Rating> Ratings { get; set; }
 
+        public DbSet<Vote> Vote { get; set; }
+
         public DbSet<Subcategory> Subcategories { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
