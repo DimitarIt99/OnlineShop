@@ -29,13 +29,13 @@
                     <div class="btn-group wishlist">
                         @if (Model.IsFavorid)
                         {
-                            <a class="btn btn-danger"asp-area="" asp-controller="Wishes" asp-action="Wishes" asp-route-id="@Model.Id">
+                            <a class="btn btn-danger" asp-area="" asp-controller="Wishes" asp-action="Wishes" asp-route-id="@Model.Id">
                                 Remove from wishlist
                             </a>
                         }
                         else
                         {
-                            <a class="btn btn-danger"asp-area="" asp-controller="Wishes" asp-action="Add" asp-route-productId="@Model.Id">
+                            <a class="btn btn-danger" asp-area="" asp-controller="Wishes" asp-action="Add" asp-route-productId="@Model.Id">
                                 Add to wishlist
                             </a>
                         }
@@ -53,7 +53,31 @@
 
     @foreach (var comment in Model.Comments)
     {
-        
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p class="text-secondary text-center">@comment.CreatedOn</p>
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left"><strong>@comment.UserName</strong></a>
+                        </p>
+                        <div class="clearfix"></div>
+                        <p>@comment.Content</p>
+                        <form id="votesForm" method="post"></form>
+                        <p>
+                            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                            <a class="float-right btn text-white btn-danger" onclick="sendVote(@comment.Id, false)"> <i class="fa fa-thumbs-down"></i> Dislike</a>
+                            <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
+                            <span id="votesCount">
+                                @comment.Votes
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>
 
