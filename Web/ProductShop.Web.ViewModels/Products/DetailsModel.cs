@@ -1,7 +1,7 @@
 ﻿namespace ProductShop.Web.ViewModels.Products
 {
     using System.Collections.Generic;
-
+    using Ganss.XSS;
     using ProductShop.Data.Models;
     using ProductShop.Services.Mapping;
     using ProductShop.Web.ViewModels.Comments;
@@ -18,6 +18,8 @@
         public string Name { get; set; }
 
         public string Descrption { get; set; }
+
+        public string SanitaziedDescription => new HtmlSanitizer().Sanitize(this.Descrption);
 
         public string ImageUrl { get; set; }
 

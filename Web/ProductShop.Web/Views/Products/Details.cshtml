@@ -15,7 +15,7 @@
 
                 <div class="col-md-7">
                     <div class="product-title">@Model.Name</div>
-                    <div class="product-desc">@Model.Descrption</div>
+                    <div class="product-desc">@Html.Raw(Model.SanitaziedDescription)</div>
                     <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
                     <hr>
                     <div class="product-price">$ @Model.Price</div>
@@ -64,15 +64,16 @@
                             <a class="float-left"><strong>@comment.UserName</strong></a>
                         </p>
                         <div class="clearfix"></div>
-                        <p>@comment.Content</p>
+                        <p>@Html.Raw(comment.SantizedContent)</p>
                         <form id="votesForm" method="post"></form>
                         <p>
                             <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
                             <a class="float-right btn text-white btn-danger" onclick="sendVote(@comment.Id, false)"> <i class="fa fa-thumbs-down"></i> Dislike</a>
                             <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
                             <span id="votesCount">
-                                @comment.Votes
+                                @comment.Votes 
                             </span>
+                            <span>Likes</span>
                         </p>
                     </div>
                 </div>

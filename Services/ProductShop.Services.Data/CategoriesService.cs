@@ -55,7 +55,6 @@
                     .Select(s => new SummaryProductModel
                     {
                         Id = s.Id,
-                        Description = s.Description,
                         ImageUrl = s.ImageUrl,
                         Name = s.Name,
                         Price = s.Price,

@@ -36,7 +36,6 @@
                 .Select(a => new SummaryProductModel
                 {
                     Id = a.Product.Id,
-                    Description = a.Product.Description,
                     ImageUrl = a.Product.ImageUrl,
                     Name = a.Product.Name,
                     Price = a.Product.Price,
@@ -52,7 +51,6 @@
             var wish = this.repository.All()
                 .Where(a => a.UserId == userId && a.ProductId == productId)
                 .FirstOrDefault();
-            
             this.repository.Delete(wish);
             await this.repository.SaveChangesAsync();
         }

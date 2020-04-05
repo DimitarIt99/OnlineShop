@@ -1,7 +1,18 @@
 ﻿@model ProductShop.Web.ViewModels.Products.CreateProductModel
 
 @inject ProductShop.Services.Data.ICategoriesService categoriesService
-<form  method="post">
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+
+<form method="post">
     <h4>Add a new product.</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
