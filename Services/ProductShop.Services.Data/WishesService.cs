@@ -47,10 +47,14 @@
             => this.repository.All()
             .Any(a => a.UserId == userId && a.ProductId == productId);
 
-        public void Remove(string userId, int productId)
+        public async Task Remove(string userId, int productId)
         {
-            var wish = this.repository.All().FirstOrDefault(a => a.UserId == userId && a.ProductId == productId);
+            var wish = this.repository.All()
+                .Where(a => a.UserId == userId && a.ProductId == productId)
+                .FirstOrDefault();
+            
             this.repository.Delete(wish);
+            await this.repository.SaveChangesAsync();
         }
     }
 }

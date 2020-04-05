@@ -29,7 +29,7 @@
                     <div class="btn-group wishlist">
                         @if (Model.IsFavorid)
                         {
-                            <a class="btn btn-danger" asp-area="" asp-controller="Wishes" asp-action="Wishes" asp-route-id="@Model.Id">
+                            <a class="btn btn-danger" asp-area="" asp-controller="Wishes" asp-action="Remove" asp-route-productId="@Model.Id">
                                 Remove from wishlist
                             </a>
                         }

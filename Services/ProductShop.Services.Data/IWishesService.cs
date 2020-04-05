@@ -11,7 +11,7 @@
 
         public IEnumerable<SummaryProductModel> All(string userId);
 
-        public void Remove(string userId, int productId);
+        public Task Remove(string userId, int productId);
 
         public bool AlredyExists(string userId, int productId);
     }

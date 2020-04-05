@@ -44,7 +44,7 @@
             return this.View(wishedProducts);
         }
 
-        public IActionResult Remove(int productId)
+        public async Task<IActionResult> Remove(int productId)
         {
             var userId = this.manager.GetUserId(this.User);
             if (!this.service.AlredyExists(userId, productId))
@@ -52,7 +52,7 @@
                 return this.BadRequest();
             }
 
-            this.service.Remove(userId, productId);
+            await this.service.Remove(userId, productId);
 
             return this.RedirectToAction("All", new { userId });
         }

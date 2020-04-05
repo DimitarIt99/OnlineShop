@@ -25,26 +25,9 @@
 
 @if (this.Model.Products.Count() != 0)
 {
-    <div class="container py-5">
 
-        <!-- For demo purpose -->
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
+    <partial name="_ProductListingPartial" model="@Model.Products" />
 
-                <!-- List group-->
-                <ul class="list-group shadow">
-
-                    <!-- list group item-->
-                    <li class="list-group-item">
-                        <!-- Custom content-->
-                       <partial name="_ProductListingPartial" model="@Model.Products"/>
-                        <!-- End -->
-                    </li>
-                </ul>
-                <!-- End -->
-            </div>
-        </div>
-    </div>
     <nav aria-label="...">
         <ul class="pagination justify-content-center">
             @if (this.Model.CurrentPage == 1)
@@ -97,12 +80,12 @@
 }
 else
 {
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="https://first1k.eu/wp-content/uploads/2018/09/Sorry.jpg" alt="Card image cap">
-    <div class="card-body">
-        <p class="card-text">Sorry this category does not seem to have products yet!</p>
-        <p class="card-text">Click the button bellow to see all categories!</p>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://first1k.eu/wp-content/uploads/2018/09/Sorry.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Sorry this category does not seem to have products yet!</p>
+            <p class="card-text">Click the button bellow to see all categories!</p>
+        </div>
+        <a asp-controller="Categories" asp-action="All" class="btn btn-primary">Categories</a>
     </div>
-    <a asp-controller="Categories" asp-action="All" class="btn btn-primary">Categories</a>
-</div>
 }
