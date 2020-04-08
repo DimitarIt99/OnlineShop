@@ -12,7 +12,9 @@
     [Authorize]
     public class WishesController : Controller
     {
-        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> manager;
+        private const int ItemsPerPage = 10;
+
+        private readonly UserManager<ApplicationUser> manager;
         private readonly IWishesService service;
 
         public WishesController(UserManager<ApplicationUser> manager, IWishesService service)
@@ -35,12 +37,13 @@
             return this.RedirectToAction("All", new { userId });
         }
 
-        public IActionResult All()
+        public IActionResult All(int page = 1)
         {
             var userId = this.manager.GetUserId(this.User);
-
-            var wishedProducts = this.service.All(userId);
-
+            var productsCount = service.GetWishesCountByUserId(userId);
+            var wishedProducts = this.service.All(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
+            wishedProducts.PagesCount = ((productsCount - 1) / ItemsPerPage) + 1;
+            wishedProducts.CurrentPage = page;
             return this.View(wishedProducts);
         }
 

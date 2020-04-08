@@ -7,6 +7,7 @@
     using ProductShop.Data.Common.Repositories;
     using ProductShop.Data.Models;
     using ProductShop.Web.ViewModels.Products;
+    using ProductShop.Web.ViewModels.Wishes;
 
     public class WishesService : IWishesService
     {
@@ -29,18 +30,31 @@
             await this.repository.SaveChangesAsync();
         }
 
-        public IEnumerable<SummaryProductModel> All(string userId)
-            => this.repository
-                .All()
-                .Where(a => a.UserId == userId)
-                .Select(a => new SummaryProductModel
-                {
-                    Id = a.Product.Id,
-                    ImageUrl = a.Product.ImageUrl,
-                    Name = a.Product.Name,
-                    Price = a.Product.Price,
-                })
-                .ToList();
+        public UserWishesViewModel All(string userId, int? take = null, int skip = 0)
+        {
+            var wishes = this.repository
+                  .All()
+                  .Where(a => a.UserId == userId)
+                  .Select(a => new SummaryProductModel
+                  {
+                      Id = a.Product.Id,
+                      ImageUrl = a.Product.ImageUrl,
+                      Name = a.Product.Name,
+                      Price = a.Product.Price,
+                  })
+                  .Skip(skip)
+                  .Take(take.Value)
+                  .ToList();
+
+            return this.repository
+                  .All()
+                  .Where(a => a.UserId == userId)
+                  .Select(a => new UserWishesViewModel
+                  {
+                      Wishes = wishes,
+                  })
+                  .FirstOrDefault();
+        }
 
         public bool AlredyExists(string userId, int productId)
             => this.repository.All()
@@ -54,5 +68,10 @@
             this.repository.Delete(wish);
             await this.repository.SaveChangesAsync();
         }
+
+        public int GetWishesCountByUserId(string id)
+           => this.repository.All()
+           .Where(a => a.UserId == id)
+           .Count();
     }
 }
