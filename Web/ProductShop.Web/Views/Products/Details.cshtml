@@ -16,7 +16,8 @@
                 <div class="col-md-7">
                     <div class="product-title">@Model.Name</div>
                     <div class="product-desc">@Html.Raw(Model.SanitaziedDescription)</div>
-                    <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+                    <a asp-area="" asp-controller="Rates" asp-action="Rate" asp-route-productId="@Model.Id" class="btn btn-dark">Rate</a>
+                    <a asp-area="" asp-controller="Rates" asp-action="AllRating" asp-route-productId="@Model.Id" class="btn btn-light">View ratings</a>
                     <hr>
                     <div class="product-price">$ @Model.Price</div>
                     <div class="product-stock">@Model.Quantity In stock</div>

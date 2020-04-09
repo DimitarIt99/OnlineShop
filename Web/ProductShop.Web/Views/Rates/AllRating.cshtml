@@ -1,0 +1,22 @@
+﻿@model ProductShop.Web.ViewModels.Rates.AllShowRatingsViewModel
+
+    <div class="row">
+        @foreach (var category in Model.Ratings)
+        {
+            <hr />
+            <div class="col-md-4 media">
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <span>
+                            @category.Username
+                        </span>
+                        <span>
+                            @category.Grade / 5
+                        </span>
+                    </h5>
+                    @category.Description
+                </div>
+            </div>
+            <hr />
+        }
+    </div>

@@ -1,0 +1,25 @@
+﻿@model ProductShop.Web.ViewModels.Rates.RateViewModel
+
+<form method="post">
+    <h4>Rate this product</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <texta class="form-group">
+        <div><label asp-for="@Model.Description"></label></div>
+        <textarea asp-for="@Model.Description" rows="10" cols="50"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </texta>
+    <div class="form-group">
+        <label asp-for="@Model.Grade"></label>
+        <select asp-for="@Model.Grade">
+            <option value="1">Very Bad</option>
+            <option value="2">Bad</option>
+            <option value="3">Average</option>
+            <option value="4">Good</option>
+            <option value="5">Very Good</option>
+        </select>
+        <input asp-for="@Model.Grade" class="dropdown-menu" />
+        <span asp-validation-for="@Model.Grade" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Rate</button>
+</form>
