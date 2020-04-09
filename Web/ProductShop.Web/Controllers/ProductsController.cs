@@ -12,6 +12,8 @@
     [Authorize]
     public class ProductsController : Controller
     {
+        private const int ItemsPerPage = 10;
+
         private readonly IProductsService productsService;
         private readonly ICategoriesService categoriesService;
         private readonly IWishesService wishesService;
@@ -43,17 +45,32 @@
                 return this.View(model);
             }
 
-            // model.UserId = this.productsService.GetUserId(this.User.Identity.Name);
+            model.UserId = this.userManager.GetUserId(this.User);
             var id = await this.productsService.CreateProduct(model);
             return this.RedirectToAction(nameof(this.Details), new { id });
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var fondProduct = this.productsService.ProductDetails(id);
             var userId = this.userManager.GetUserId(this.User);
             fondProduct.IsFavorid = this.wishesService.AlredyExists(userId, id);
             return this.View(fondProduct);
+        }
+
+        public IActionResult MyProductsForSale(int page = 1)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            var productsCount = this.productsService.GetCountByUserId(userId);
+            UsersProductsForSaleViewModel usersProducts = new UsersProductsForSaleViewModel()
+            {
+                CurrentPage = page,
+                PagesCount = ((productsCount - 1) / ItemsPerPage) + 1,
+            };
+            usersProducts.Products = this.productsService.UserProductsById(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
+            return this.View(usersProducts);
         }
     }
 }

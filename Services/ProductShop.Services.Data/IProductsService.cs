@@ -1,5 +1,6 @@
 ﻿namespace ProductShop.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using ProductShop.Web.ViewModels.Products;
@@ -8,10 +9,12 @@
     {
         public Task<int> CreateProduct(CreateProductModel model);
 
-        public string GetUserId(string userName);
-
         public DetailsModel ProductDetails(object id);
 
         public int GetCountByCategoryName(string name);
+
+        public int GetCountByUserId(string userId);
+
+        public IEnumerable<SummaryProductModel> UserProductsById(string userId, int take, int skip = 0);
     }
 }

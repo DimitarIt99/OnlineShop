@@ -1,6 +1,7 @@
 ﻿namespace ProductShop.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
@@ -14,19 +15,11 @@
     public class ProductsService : IProductsService
     {
         private readonly IDeletableEntityRepository<Product> productRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public ProductsService(IDeletableEntityRepository<Product> productRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public ProductsService(IDeletableEntityRepository<Product> productRepository)
         {
             this.productRepository = productRepository;
-            this.userRepository = userRepository;
         }
-
-        public string GetUserId(string userName)
-            => this.userRepository.All()
-            .Where(a => a.UserName == userName)
-            .Select(a => a.Id)
-            .FirstOrDefault();
 
         public async Task<int> CreateProduct(CreateProductModel model)
         {
@@ -95,6 +88,26 @@
         public int GetCountByCategoryName(string name)
             => this.productRepository.All()
             .Where(a => a.Category.Name == name)
+            .Count();
+
+        public IEnumerable<SummaryProductModel> UserProductsById(string userId, int take, int skip = 0)
+        => this.productRepository.All()
+            .Where(a => a.UserId == userId)
+            .OrderBy(a => a.CreatedOn)
+            .Skip(skip)
+            .Take(take)
+            .Select(a => new SummaryProductModel
+            {
+                Id = a.Id,
+                ImageUrl = a.ImageUrl,
+                Name = a.Name,
+                Price = a.Price,
+            })
+            .ToList();
+
+        public int GetCountByUserId(string userId)
+            => this.productRepository.All()
+            .Where(a => a.User.Id == userId)
             .Count();
     }
 }
