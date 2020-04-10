@@ -4,6 +4,8 @@
     {
         NotOrdered = 0,
         Orderder = 1,
-        Received = 2,
+        OnRoute = 2,
+        OnTheAdress = 3,
+        Received = 4,
     }
 }
