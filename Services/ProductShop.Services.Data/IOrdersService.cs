@@ -12,7 +12,7 @@
 
         public Task CancellAsync(RemoveOrderViewModel model);
 
-        public IEnumerable<SummaryProductModel> AllMyOrders(string userId, int take, int skip = 0);
+        public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0);
 
         public bool AlreadyOrdered(string userId, int productId);
 
@@ -21,5 +21,7 @@
         public bool OrderIdExists(string id);
 
         public DelivaryStateViewModel GetOrderDelivaryState(string id);
+
+        public bool IdExists(string id);
     }
 }

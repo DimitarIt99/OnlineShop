@@ -7,26 +7,45 @@
     using Microsoft.AspNetCore.Mvc;
 
     using ProductShop.Data.Models;
+    using ProductShop.Services.Data;
+    using ProductShop.Web.ViewModels.Orders;
 
     [Authorize]
     public class OrdersController : Controller
     {
         private readonly UserManager<ApplicationUser> manager;
+        private readonly IOrdersService service;
 
-        public OrdersController(UserManager<ApplicationUser> manager)
+        public OrdersController(UserManager<ApplicationUser> manager, IOrdersService service)
         {
             this.manager = manager;
+            this.service = service;
+        }
+
+        [HttpGet]
+        public IActionResult OrderProduct(int productId)
+        {
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> OrderProduct(int productId)
+        public async Task<IActionResult> OrderProduct(CreateOrderViewModel model)
         {
             var userId = this.manager.GetUserId(this.User);
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model.ProductId);
+            }
 
+            if (this.service.AlreadyOrdered(userId, model.ProductId))
+            {
+                return this.RedirectToAction("AlreadyOrdered", new { productId = model.ProductId });
+            }
 
-            // validations
-            //repository
+            await this.service.AddOrderAsync(model);
+
+            return this.RedirectToAction("MyOrders");
 
         }
 
@@ -37,6 +56,30 @@
             //repository
 
             return this.View();
+        }
+
+        public IActionResult OrderState(string id)
+        {
+            var state = this.service.GetOrderDelivaryState(id);
+
+            return this.View(state);
+        }
+
+        public async Task<IActionResult> CancellOrder(RemoveOrderViewModel model)
+        {
+            if (!this.service.IdExists(model.Id))
+            {
+                return this.BadRequest();
+            }
+
+            await this.service.CancellAsync(model);
+
+            return this.RedirectToAction("MyOrders");
+        }
+
+        public IActionResult AlreadyOrdered(int productId)
+        {
+            return this.View(productId);
         }
     }
 }

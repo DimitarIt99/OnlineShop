@@ -8,14 +8,14 @@
     {
         public ListingOrdersViewModel()
         {
-            this.Orders = new List<SummaryProductModel>();
+            this.Orders = new List<OrderSummaryViewModel>();
         }
 
         public int CurrentPage { get; set; }
 
         public int PagesCount { get; set; }
 
-        public IEnumerable<SummaryProductModel> Orders { get; set; }
+        public IEnumerable<OrderSummaryViewModel> Orders { get; set; }
 
     }
 }

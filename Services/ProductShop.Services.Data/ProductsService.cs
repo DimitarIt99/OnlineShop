@@ -109,5 +109,9 @@
             => this.productRepository.All()
             .Where(a => a.User.Id == userId)
             .Count();
+
+        public bool ProductQuantityIsPositive(int productId)
+            => this.productRepository.All()
+            .Where(a => a.Id == productId).Any(a => a.Quantity >= 1);
     }
 }

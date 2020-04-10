@@ -16,5 +16,7 @@
         public int GetCountByUserId(string userId);
 
         public IEnumerable<SummaryProductModel> UserProductsById(string userId, int take, int skip = 0);
+
+        public bool ProductQuantityIsPositive(int productId);
     }
 }

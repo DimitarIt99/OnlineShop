@@ -29,19 +29,25 @@
                 Adress = model.Adress,
                 State = (DeliveryState)model.State,
             };
+            var product = this.repository.All()
+                .Where(a => a.ProductId == model.ProductId)
+                .Select(a => a.Product)
+                .FirstOrDefault();
+            product.Quantity -= 1;
             await this.repository.AddAsync(order);
             await this.repository.SaveChangesAsync();
         }
 
-        public IEnumerable<SummaryProductModel> AllMyOrders(string userId, int take, int skip = 0)
+        public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0)
         {
             return this.repository
                 .All()
                 .Where(a => a.Id == userId)
                 .OrderBy(a => a.CreatedOn)
-                .Select(a => new SummaryProductModel
+                .Select(a => new OrderSummaryViewModel
                 {
-                    Id = a.Product.Id,
+                    Id = a.Id,
+                    ProductId = a.Product.Id,
                     ImageUrl = a.Product.ImageUrl,
                     Name = a.Product.Name,
                     Price = a.Product.Price,
@@ -61,7 +67,8 @@
             var orderToCancell = this.repository.All()
                 .Where(a => a.Id == model.Id)
                 .FirstOrDefault();
-
+            var product = orderToCancell.Product;
+            product.Quantity += 1;
             this.repository.Delete(orderToCancell);
             await this.repository.SaveChangesAsync();
         }
@@ -88,6 +95,9 @@
 
             return state;
         }
+
+        public bool IdExists(string id)
+            => this.repository.AllAsNoTracking().Any(a => a.Id == id);
 
         public bool OrderIdExists(string id)
             => this.repository.All()
