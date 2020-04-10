@@ -1,0 +1,9 @@
+﻿@model ProductShop.Web.ViewModels.Orders.RemoveOrderViewModel
+
+<div class="card text-center" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Are you sure you want to cancell this order?</h5>
+        <a asp-area="" asp-controller="Orders" asp-action="CancellOrder" asp-route-id="@Model.Id" class="btn btn-success">Yes</a>
+        <a asp-area="" asp-controller="Orders" asp-action="MyOrders" class="btn btn-danger">No</a>
+    </div>
+</div>

@@ -13,13 +13,17 @@
     [Authorize]
     public class OrdersController : Controller
     {
-        private readonly UserManager<ApplicationUser> manager;
-        private readonly IOrdersService service;
+        private const int ItemsPerPage = 10;
 
-        public OrdersController(UserManager<ApplicationUser> manager, IOrdersService service)
+        private readonly UserManager<ApplicationUser> manager;
+        private readonly IOrdersService ordersService;
+        private readonly IProductsService productsService;
+
+        public OrdersController(UserManager<ApplicationUser> manager, IOrdersService ordersService, IProductsService productsService)
         {
             this.manager = manager;
-            this.service = service;
+            this.ordersService = ordersService;
+            this.productsService = productsService;
         }
 
         [HttpGet]
@@ -33,17 +37,8 @@
         {
             var userId = this.manager.GetUserId(this.User);
 
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model.ProductId);
-            }
-
-            if (this.service.AlreadyOrdered(userId, model.ProductId))
-            {
-                return this.RedirectToAction("AlreadyOrdered", new { productId = model.ProductId });
-            }
-
-            await this.service.AddOrderAsync(model);
+            model.UserId = userId;
+            await this.ordersService.AddOrderAsync(model);
 
             return this.RedirectToAction("MyOrders");
 
@@ -52,28 +47,39 @@
         public IActionResult MyOrders(int page = 1)
         {
             var userId = this.manager.GetUserId(this.User);
+            var ordersCount = this.ordersService.OrderedProductsCount(userId);
+            var orders = new ListingOrdersViewModel
+            {
+                CurrentPage = page,
+                PagesCount = ((ordersCount - 1) / ItemsPerPage) + 1,
+            };
+            orders.Orders = this.ordersService.AllMyOrders(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
 
-            //repository
-
-            return this.View();
+            return this.View(orders);
         }
 
         public IActionResult OrderState(string id)
         {
-            var state = this.service.GetOrderDelivaryState(id);
+            var state = this.ordersService.GetOrderDelivaryState(id);
 
             return this.View(state);
         }
 
+        [HttpGet]
+        public IActionResult CancellOrder()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CancellOrder(RemoveOrderViewModel model)
         {
-            if (!this.service.IdExists(model.Id))
+            if (!this.ordersService.IdExists(model.Id))
             {
                 return this.BadRequest();
             }
 
-            await this.service.CancellAsync(model);
-
+            await this.ordersService.CancellAsync(model);
             return this.RedirectToAction("MyOrders");
         }
 

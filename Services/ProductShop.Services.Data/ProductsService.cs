@@ -113,5 +113,21 @@
         public bool ProductQuantityIsPositive(int productId)
             => this.productRepository.All()
             .Where(a => a.Id == productId).Any(a => a.Quantity >= 1);
+
+        public async Task ReduceQuantityById(int productId)
+        {
+            var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
+
+            product.Quantity--;
+            await this.productRepository.SaveChangesAsync();
+        }
+
+        public async Task IncreaseQuantityById(int productId)
+        {
+            var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
+
+            product.Quantity++;
+            await this.productRepository.SaveChangesAsync();
+        }
     }
 }

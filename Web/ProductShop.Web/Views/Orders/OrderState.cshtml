@@ -1,0 +1,13 @@
+﻿@model ProductShop.Web.ViewModels.Orders.DelivaryStateViewModel
+
+<div class="card">
+    <div class="card-header">
+        Ordered product
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Your order state is</h5>
+        <p class="card-text">@Model.StateSpacedOut</p>
+        <p class="card-text">While you wait your product to come you can check all our order products for something you might need!</p>
+        <a asp-area="" asp-controller="Categories" asp-action="All" class="btn btn-primary">Categories</a>
+    </div>
+</div>

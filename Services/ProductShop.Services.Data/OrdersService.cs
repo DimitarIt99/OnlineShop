@@ -14,10 +14,12 @@
     public class OrdersService : IOrdersService
     {
         private readonly IDeletableEntityRepository<Order> repository;
+        private readonly IProductsService productsService;
 
-        public OrdersService(IDeletableEntityRepository<Order> repository)
+        public OrdersService(IDeletableEntityRepository<Order> repository, IProductsService productsService)
         {
             this.repository = repository;
+            this.productsService = productsService;
         }
 
         public async Task AddOrderAsync(CreateOrderViewModel model)
@@ -27,23 +29,18 @@
                 UserId = model.UserId,
                 ProductId = model.ProductId,
                 Adress = model.Adress,
-                State = (DeliveryState)model.State,
+                State = DeliveryState.Orderder,
             };
-            var product = this.repository.All()
-                .Where(a => a.ProductId == model.ProductId)
-                .Select(a => a.Product)
-                .FirstOrDefault();
-            product.Quantity -= 1;
+            await this.productsService.ReduceQuantityById(model.ProductId);
             await this.repository.AddAsync(order);
             await this.repository.SaveChangesAsync();
         }
 
         public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0)
         {
-            return this.repository
+            var ordersList = this.repository
                 .All()
-                .Where(a => a.Id == userId)
-                .OrderBy(a => a.CreatedOn)
+                .Where(a => a.UserId == userId)
                 .Select(a => new OrderSummaryViewModel
                 {
                     Id = a.Id,
@@ -55,6 +52,7 @@
                 .Skip(skip)
                 .Take(take)
                 .ToList();
+            return ordersList;
         }
 
         public bool AlreadyOrdered(string userId, int productId)
@@ -68,7 +66,8 @@
                 .Where(a => a.Id == model.Id)
                 .FirstOrDefault();
             var product = orderToCancell.Product;
-            product.Quantity += 1;
+            await this.productsService.IncreaseQuantityById(product.Id);
+
             this.repository.Delete(orderToCancell);
             await this.repository.SaveChangesAsync();
         }
@@ -98,6 +97,12 @@
 
         public bool IdExists(string id)
             => this.repository.AllAsNoTracking().Any(a => a.Id == id);
+
+        public int OrderedProductsCount(string userId)
+            => this.repository
+            .AllAsNoTracking()
+            .Where(a => a.UserId == userId)
+            .Count();
 
         public bool OrderIdExists(string id)
             => this.repository.All()

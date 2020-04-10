@@ -23,5 +23,7 @@
         public DelivaryStateViewModel GetOrderDelivaryState(string id);
 
         public bool IdExists(string id);
+
+        public int OrderedProductsCount(string userId);
     }
 }

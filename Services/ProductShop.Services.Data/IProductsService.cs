@@ -18,5 +18,9 @@
         public IEnumerable<SummaryProductModel> UserProductsById(string userId, int take, int skip = 0);
 
         public bool ProductQuantityIsPositive(int productId);
+
+        public Task ReduceQuantityById(int productId);
+
+        public Task IncreaseQuantityById(int productId);
     }
 }
