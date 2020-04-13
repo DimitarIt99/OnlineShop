@@ -48,14 +48,19 @@
                   .Take(take.Value)
                   .ToList();
 
-            return this.repository
-                  .All()
-                  .Where(a => a.UserId == userId)
-                  .Select(a => new UserWishesViewModel
-                  {
-                      Wishes = wishes,
-                  })
-                  .FirstOrDefault();
+            if (wishes.Count() > 0)
+            {
+                return this.repository
+                .All()
+                .Where(a => a.UserId == userId)
+                .Select(a => new UserWishesViewModel
+                {
+                    Wishes = wishes,
+                })
+                .FirstOrDefault();
+            }
+
+            return new UserWishesViewModel();
         }
 
         public bool AlredyExists(string userId, int productId)

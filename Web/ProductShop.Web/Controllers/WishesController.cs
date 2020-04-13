@@ -40,7 +40,7 @@
         public IActionResult All(int page = 1)
         {
             var userId = this.manager.GetUserId(this.User);
-            var productsCount = service.GetWishesCountByUserId(userId);
+            var productsCount = this.service.GetWishesCountByUserId(userId);
             var wishedProducts = this.service.All(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
             wishedProducts.PagesCount = ((productsCount - 1) / ItemsPerPage) + 1;
             wishedProducts.CurrentPage = page;
