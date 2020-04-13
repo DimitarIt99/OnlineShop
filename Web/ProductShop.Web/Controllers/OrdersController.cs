@@ -38,6 +38,11 @@
             var userId = this.manager.GetUserId(this.User);
 
             model.UserId = userId;
+            if (!this.productsService.ProductQuantityIsPositive(model.ProductId))
+            {
+                return this.BadRequest();
+            }
+
             await this.ordersService.AddOrderAsync(model);
 
             return this.RedirectToAction("MyOrders");

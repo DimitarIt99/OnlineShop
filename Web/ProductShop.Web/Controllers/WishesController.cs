@@ -55,7 +55,7 @@
                 return this.BadRequest();
             }
 
-            await this.service.Remove(userId, productId);
+            await this.service.RemoveAsync(userId, productId);
 
             return this.RedirectToAction("All", new { userId });
         }

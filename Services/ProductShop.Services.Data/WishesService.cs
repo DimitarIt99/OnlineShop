@@ -35,6 +35,7 @@
             var wishes = this.repository
                   .All()
                   .Where(a => a.UserId == userId)
+                  .Where(a => a.Product.Quantity >= 1)
                   .Select(a => new SummaryProductModel
                   {
                       Id = a.Product.Id,
@@ -60,7 +61,7 @@
             => this.repository.All()
             .Any(a => a.UserId == userId && a.ProductId == productId);
 
-        public async Task Remove(string userId, int productId)
+        public async Task RemoveAsync(string userId, int productId)
         {
             var wish = this.repository.All()
                 .Where(a => a.UserId == userId && a.ProductId == productId)
@@ -72,6 +73,7 @@
         public int GetWishesCountByUserId(string id)
            => this.repository.All()
            .Where(a => a.UserId == id)
+            .Where(a => a.Product.Quantity >= 1)
            .Count();
     }
 }

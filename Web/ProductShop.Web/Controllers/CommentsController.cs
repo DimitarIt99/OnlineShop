@@ -37,7 +37,7 @@
             }
 
             model.UserId = this.userManager.GetUserId(this.User);
-            await this.service.CreateComment(model);
+            await this.service.CreateCommentAsync(model);
 
             return this.RedirectToAction("Details", "Products", new { id = model.ProductId });
         }

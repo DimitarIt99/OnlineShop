@@ -15,7 +15,7 @@
             this.repository = repository;
         }
 
-        public async Task CreateComment(CreateCommentsViewModel model)
+        public async Task CreateCommentAsync(CreateCommentsViewModel model)
         {
             var comment = new Comment
             {

@@ -52,6 +52,7 @@
                     }),
                     Products = a.Products
                     .Where(s => s.CategoryId == categoryId)
+                    .Where(a => a.Quantity >= 1)
                     .Select(s => new SummaryProductModel
                     {
                         Id = s.Id,

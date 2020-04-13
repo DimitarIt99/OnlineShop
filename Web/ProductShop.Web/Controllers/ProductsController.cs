@@ -46,7 +46,7 @@
             }
 
             model.UserId = this.userManager.GetUserId(this.User);
-            var id = await this.productsService.CreateProduct(model);
+            var id = await this.productsService.CreateProductAsync(model);
             return this.RedirectToAction(nameof(this.Details), new { id });
         }
 

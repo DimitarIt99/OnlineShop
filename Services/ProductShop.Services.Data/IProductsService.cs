@@ -7,7 +7,7 @@
 
     public interface IProductsService
     {
-        public Task<int> CreateProduct(CreateProductModel model);
+        public Task<int> CreateProductAsync(CreateProductModel model);
 
         public DetailsModel ProductDetails(object id);
 

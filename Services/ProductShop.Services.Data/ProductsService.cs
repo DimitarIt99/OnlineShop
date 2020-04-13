@@ -21,7 +21,7 @@
             this.productRepository = productRepository;
         }
 
-        public async Task<int> CreateProduct(CreateProductModel model)
+        public async Task<int> CreateProductAsync(CreateProductModel model)
         {
             var idTokens = model.CategoryAndSubcategoryId
                 .Split(":", System.StringSplitOptions.RemoveEmptyEntries)
@@ -88,11 +88,13 @@
         public int GetCountByCategoryName(string name)
             => this.productRepository.All()
             .Where(a => a.Category.Name == name)
+            .Where(a => a.Quantity >= 1)
             .Count();
 
         public IEnumerable<SummaryProductModel> UserProductsById(string userId, int take, int skip = 0)
         => this.productRepository.All()
             .Where(a => a.UserId == userId)
+            .Where(a => a.Quantity >= 1)
             .OrderBy(a => a.CreatedOn)
             .Skip(skip)
             .Take(take)
@@ -108,6 +110,7 @@
         public int GetCountByUserId(string userId)
             => this.productRepository.All()
             .Where(a => a.User.Id == userId)
+            .Where(a => a.Quantity >= 1)
             .Count();
 
         public bool ProductQuantityIsPositive(int productId)
@@ -119,6 +122,7 @@
             var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
 
             product.Quantity--;
+
             await this.productRepository.SaveChangesAsync();
         }
 

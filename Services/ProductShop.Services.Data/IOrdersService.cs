@@ -16,7 +16,7 @@
 
         public bool AlreadyOrdered(string userId, int productId);
 
-        public Task ChangeState(EditStateViewModel model);
+        public Task ChangeStateAsync(EditStateViewModel model);
 
         public bool OrderIdExists(string id);
 
@@ -25,5 +25,7 @@
         public bool IdExists(string id);
 
         public int OrderedProductsCount(string userId);
+
+
     }
 }

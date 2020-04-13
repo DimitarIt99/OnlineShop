@@ -6,6 +6,6 @@
 
     public interface ICommentsService
     {
-        public Task CreateComment(CreateCommentsViewModel model);
+        public Task CreateCommentAsync(CreateCommentsViewModel model);
     }
 }

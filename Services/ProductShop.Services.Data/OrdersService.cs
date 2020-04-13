@@ -38,7 +38,7 @@
 
         public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0)
         {
-            var ordersList =this.repository
+            var ordersList = this.repository
                 .All()
                 .Where(a => a.UserId == userId)
                 .Select(a => new OrderSummaryViewModel
@@ -74,13 +74,17 @@
             await this.repository.SaveChangesAsync();
         }
 
-        public async Task ChangeState(EditStateViewModel model)
+        public async Task ChangeStateAsync(EditStateViewModel model)
         {
             var order = this.repository.All()
                 .Where(a => a.Id == model.Id)
                 .FirstOrDefault();
-
             order.State = (DeliveryState)model.NewState;
+            if ((DeliveryState)model.NewState == DeliveryState.Received)
+            {
+                this.repository.Delete(order);
+            }
+
             await this.repository.SaveChangesAsync();
         }
 

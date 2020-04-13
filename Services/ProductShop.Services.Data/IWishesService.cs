@@ -12,7 +12,7 @@
 
         public UserWishesViewModel All(string userId, int? take = null, int skip = 0);
 
-        public Task Remove(string userId, int productId);
+        public Task RemoveAsync(string userId, int productId);
 
         public bool AlredyExists(string userId, int productId);
 
