@@ -67,6 +67,7 @@
                     Name = p.Name,
                     Price = p.Price,
                     Quantity = p.Quantity,
+                    AverageRating = (decimal)p.Ratings.Average(d => (int)d.Grade),
                     UserUserName = p.User.UserName,
                     Comments = p.Comments
                     .Where(c => c.ProductId == inputId)
@@ -104,6 +105,7 @@
                 ImageUrl = a.ImageUrl,
                 Name = a.Name,
                 Price = a.Price,
+                AverageRating = (decimal)a.Ratings.Average(d => (int)d.Grade),
             })
             .ToList();
 

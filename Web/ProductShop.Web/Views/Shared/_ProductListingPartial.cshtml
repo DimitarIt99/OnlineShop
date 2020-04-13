@@ -20,14 +20,18 @@
                                 </h5>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     <h6 class="font-weight-bold my-2">$@product.Price</h6>
-                                        <a style="color: snow" class="btn btn-primary" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">See Details</a>
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                    </ul>
+                                    <a style="color: snow" class="btn btn-primary" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">See Details</a>
+
+                                    @if (product.AverageRating != 0) // to do make it depend on count
+                                    {
+                                        <ul class="list-inline small">
+                                            <li>@product.AverageRating <span>Average rating</span></li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <span>Not rated</span>
+                                    }
                                 </div>
                             </div><img src="@product.ImageUrl" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
                         </div>

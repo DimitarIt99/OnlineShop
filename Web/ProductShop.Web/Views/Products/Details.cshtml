@@ -18,6 +18,14 @@
                     <div class="product-desc">@Html.Raw(Model.SanitaziedDescription)</div>
                     <a asp-area="" asp-controller="Rates" asp-action="Rate" asp-route-productId="@Model.Id" class="btn btn-dark">Rate</a>
                     <a asp-area="" asp-controller="Rates" asp-action="AllRating" asp-route-productId="@Model.Id" class="btn btn-light">View ratings</a>
+                    @if (Model.AverageRating != 0)
+                    {
+                        <span>@Model.AverageRating/5 Average rating</span>
+                    }
+                    else
+                    {
+                        <span>Not rated</span>
+                    }
                     <hr>
                     <div class="product-price">$ @Model.Price</div>
                     @if (Model.Quantity >= 1)

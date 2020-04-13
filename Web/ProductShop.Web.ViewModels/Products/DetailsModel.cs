@@ -29,6 +29,8 @@
 
         public string UserUserName { get; set; }
 
+        public decimal AverageRating { get; set; }
+
         public int VotesCount { get; set; }
 
         public bool IsFavorid { get; set; }

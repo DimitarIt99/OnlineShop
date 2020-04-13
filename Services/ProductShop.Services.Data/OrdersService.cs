@@ -48,6 +48,7 @@
                     ImageUrl = a.Product.ImageUrl,
                     Name = a.Product.Name,
                     Price = a.Product.Price,
+
                 })
                 .Skip(skip)
                 .Take(take)
