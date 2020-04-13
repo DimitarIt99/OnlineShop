@@ -48,6 +48,7 @@
                     ImageUrl = a.Product.ImageUrl,
                     Name = a.Product.Name,
                     Price = a.Product.Price,
+                    AverageRating = (decimal)a.Product.Ratings.Average(a => (int)a.Grade),
 
                 })
                 .Skip(skip)
