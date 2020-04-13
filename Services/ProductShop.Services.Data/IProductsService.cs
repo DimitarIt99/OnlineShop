@@ -19,8 +19,8 @@
 
         public bool ProductQuantityIsPositive(int productId);
 
-        public Task ReduceQuantityById(int productId);
+        public Task ReduceQuantityByIdAsync(int productId);
 
-        public Task IncreaseQuantityById(int productId);
+        public Task IncreaseQuantityByIdAsync(int productId);
     }
 }

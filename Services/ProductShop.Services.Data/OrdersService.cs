@@ -31,14 +31,14 @@
                 Adress = model.Adress,
                 State = DeliveryState.Orderder,
             };
-            await this.productsService.ReduceQuantityById(model.ProductId);
+            await this.productsService.ReduceQuantityByIdAsync(model.ProductId);
             await this.repository.AddAsync(order);
             await this.repository.SaveChangesAsync();
         }
 
         public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0)
         {
-            var ordersList = this.repository
+            var ordersList =this.repository
                 .All()
                 .Where(a => a.UserId == userId)
                 .Select(a => new OrderSummaryViewModel
@@ -65,8 +65,10 @@
             var orderToCancell = this.repository.All()
                 .Where(a => a.Id == model.Id)
                 .FirstOrDefault();
-            var product = orderToCancell.Product;
-            await this.productsService.IncreaseQuantityById(product.Id);
+            var product = this.repository.All().Where(a => a.Id == model.Id)
+                .Select(a => a.ProductId)
+                .FirstOrDefault();
+            await this.productsService.IncreaseQuantityByIdAsync(product);
 
             this.repository.Delete(orderToCancell);
             await this.repository.SaveChangesAsync();

@@ -114,7 +114,7 @@
             => this.productRepository.All()
             .Where(a => a.Id == productId).Any(a => a.Quantity >= 1);
 
-        public async Task ReduceQuantityById(int productId)
+        public async Task ReduceQuantityByIdAsync(int productId)
         {
             var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
 
@@ -122,7 +122,7 @@
             await this.productRepository.SaveChangesAsync();
         }
 
-        public async Task IncreaseQuantityById(int productId)
+        public async Task IncreaseQuantityByIdAsync(int productId)
         {
             var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
 

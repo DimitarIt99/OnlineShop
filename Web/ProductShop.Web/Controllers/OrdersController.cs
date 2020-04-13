@@ -66,18 +66,22 @@
         }
 
         [HttpGet]
-        public IActionResult CancellOrder()
+        public IActionResult CancellOrder(RemoveOrderViewModel model)
         {
-            return this.View();
+            return this.View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CancellOrder(RemoveOrderViewModel model)
+        public async Task<IActionResult> CancellOrderDb(string id)
         {
-            if (!this.ordersService.IdExists(model.Id))
+            RemoveOrderViewModel model = new RemoveOrderViewModel
             {
-                return this.BadRequest();
-            }
+                Id = id,
+            };
+
+           // if (!this.ordersService.IdExists(model.Id))
+           // {
+           //     return this.BadRequest();
+           // }
 
             await this.ordersService.CancellAsync(model);
             return this.RedirectToAction("MyOrders");
