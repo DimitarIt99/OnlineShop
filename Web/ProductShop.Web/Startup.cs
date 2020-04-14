@@ -65,6 +65,7 @@
             services.AddTransient<IWishesService, WishesService>();
             services.AddTransient<IRatesService, RatesService>();
             services.AddTransient<IOrdersService, OrdersService>();
+            services.AddTransient<ISubcategoriesService, SubcategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

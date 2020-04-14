@@ -22,5 +22,7 @@
         public Task ReduceQuantityByIdAsync(int productId);
 
         public Task IncreaseQuantityByIdAsync(int productId);
+
+        public IEnumerable<SummaryProductModel> ProductsBySubcategoryName(string subcategoryName, int take, int skip = 0);
     }
 }

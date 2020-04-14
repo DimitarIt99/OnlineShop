@@ -14,11 +14,11 @@
 
     public class ProductsService : IProductsService
     {
-        private readonly IDeletableEntityRepository<Product> productRepository;
+        private readonly IDeletableEntityRepository<Product> repository;
 
-        public ProductsService(IDeletableEntityRepository<Product> productRepository)
+        public ProductsService(IDeletableEntityRepository<Product> repository)
         {
-            this.productRepository = productRepository;
+            this.repository = repository;
         }
 
         public async Task<int> CreateProductAsync(CreateProductModel model)
@@ -47,8 +47,8 @@
                 UserId = model.UserId,
             };
 
-            await this.productRepository.AddAsync(product);
-            await this.productRepository.SaveChangesAsync();
+            await this.repository.AddAsync(product);
+            await this.repository.SaveChangesAsync();
             return product.Id;
         }
 
@@ -56,7 +56,7 @@
         {
             var inputId = Convert.ToInt32(id);
 
-            var res = this.productRepository
+            var res = this.repository
                 .All()
                 .Where(a => a.Id == inputId)
                 .Select(p => new DetailsModel
@@ -87,13 +87,13 @@
         }
 
         public int GetCountByCategoryName(string name)
-            => this.productRepository.All()
+            => this.repository.All()
             .Where(a => a.Category.Name == name)
             .Where(a => a.Quantity >= 1)
             .Count();
 
         public IEnumerable<SummaryProductModel> UserProductsById(string userId, int take, int skip = 0)
-        => this.productRepository.All()
+        => this.repository.All()
             .Where(a => a.UserId == userId)
             .Where(a => a.Quantity >= 1)
             .OrderBy(a => a.CreatedOn)
@@ -110,30 +110,48 @@
             .ToList();
 
         public int GetCountByUserId(string userId)
-            => this.productRepository.All()
+            => this.repository.All()
             .Where(a => a.User.Id == userId)
             .Where(a => a.Quantity >= 1)
             .Count();
 
         public bool ProductQuantityIsPositive(int productId)
-            => this.productRepository.All()
+            => this.repository.All()
             .Where(a => a.Id == productId).Any(a => a.Quantity >= 1);
 
         public async Task ReduceQuantityByIdAsync(int productId)
         {
-            var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
+            var product = this.repository.All().Where(a => a.Id == productId).FirstOrDefault();
 
             product.Quantity--;
 
-            await this.productRepository.SaveChangesAsync();
+            await this.repository.SaveChangesAsync();
         }
 
         public async Task IncreaseQuantityByIdAsync(int productId)
         {
-            var product = this.productRepository.All().Where(a => a.Id == productId).FirstOrDefault();
+            var product = this.repository.All().Where(a => a.Id == productId).FirstOrDefault();
 
             product.Quantity++;
-            await this.productRepository.SaveChangesAsync();
+            await this.repository.SaveChangesAsync();
+        }
+
+        public IEnumerable<SummaryProductModel> ProductsBySubcategoryName(string subcategoryName, int take, int skip = 0)
+        {
+            return this.repository.All()
+                .Where(a => a.Subcategory.Name == subcategoryName)
+                .Where(a => a.Quantity >= 1)
+                .Skip(skip)
+                .Take(take)
+                .Select(a => new SummaryProductModel
+                {
+                    Id = a.Id,
+                    AverageRating = (decimal)a.Ratings.Average(a => (int)a.Grade),
+                    ImageUrl = a.ImageUrl,
+                    Name = a.Name,
+                    Price = a.Price,
+                })
+                .ToList();
         }
     }
 }
