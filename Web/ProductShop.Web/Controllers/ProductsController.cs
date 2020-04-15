@@ -72,5 +72,34 @@
             usersProducts.Products = this.productsService.UserProductsById(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
             return this.View(usersProducts);
         }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            // repository
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProductViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return await Task.Run(() =>
+                {
+                    return this.RedirectToAction("Edited", new { id = model.Id });
+                });
+            }
+            // repository check if the user ids are the same
+
+
+            // repository
+
+            return await Task.Run(() =>
+            {
+                return this.RedirectToAction("Details", new { id = model.Id });
+            });
+        }
     }
 }
