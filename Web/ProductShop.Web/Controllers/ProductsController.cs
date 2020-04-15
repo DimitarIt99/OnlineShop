@@ -74,11 +74,17 @@
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            // repository
+            var userId = this.userManager.GetUserId(this.User);
+            if (!this.productsService.SaleIsByTheUserEdting(userId, id))
+            {
+                return this.BadRequest();
+            }
 
-            return this.View();
+            var productToEdit = this.productsService.GetProductForEditById(id);
+
+            return this.View(productToEdit);
         }
 
         [HttpPost]
@@ -86,20 +92,19 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return await Task.Run(() =>
-                {
-                    return this.RedirectToAction("Edited", new { id = model.Id });
-                });
+                return this.RedirectToAction("Edited", new { id = model.Id });
             }
-            // repository check if the user ids are the same
 
+            var userId = this.userManager.GetUserId(this.User);
 
-            // repository
-
-            return await Task.Run(() =>
+            if (!this.productsService.SaleIsByTheUserEdting(userId, model.Id))
             {
-                return this.RedirectToAction("Details", new { id = model.Id });
-            });
+                return this.BadRequest();
+            }
+
+            await this.productsService.EditProductAsync(model);
+
+            return this.RedirectToAction("Details", new { id = model.Id });
         }
     }
 }

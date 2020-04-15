@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProductShop.Web.ViewModels.Products
+﻿namespace ProductShop.Web.ViewModels.Products
 {
-    public class EditProductViewModel
+    using System.ComponentModel.DataAnnotations;
+
+    using ProductShop.Data.Models;
+    using ProductShop.Services.Mapping;
+
+    public class EditProductViewModel : IMapFrom<Product>
     {
-        private const string priceRegex = @"^(?<firstPart>[0-9]+)((?<dot>\.{0,1})((?<=\.)(?<secondPart>[0-9]{1,2}))){0,1}$";
+        private const string PrideRegex = @"^(?<firstPart>[0-9]+)((?<dot>\.{0,1})((?<=\.)(?<secondPart>[0-9]{1,2}))){0,1}$";
 
         public int Id { get; set; }
 
@@ -20,13 +23,12 @@ namespace ProductShop.Web.ViewModels.Products
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Please enter a price!")]
-        [RegularExpression(priceRegex, ErrorMessage = "The price you entered is either negative or invalid. Please enter a valid price!")]
+        [RegularExpression(PrideRegex, ErrorMessage = "The price you entered is either negative or invalid. Please enter a valid price!")]
         public string Price { get; set; }
 
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
 
-        [AutoMapper.IgnoreMap]
         public string UserId { get; set; }
 
         [AutoMapper.IgnoreMap]

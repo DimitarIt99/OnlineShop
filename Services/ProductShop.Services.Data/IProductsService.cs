@@ -24,5 +24,11 @@
         public Task IncreaseQuantityByIdAsync(int productId);
 
         public IEnumerable<SummaryProductModel> ProductsBySubcategoryName(string subcategoryName, int take, int skip = 0);
+
+        public EditProductViewModel GetProductForEditById(int id);
+
+        public bool SaleIsByTheUserEdting(string userId, int productId);
+
+        public Task EditProductAsync(EditProductViewModel model);
     }
 }

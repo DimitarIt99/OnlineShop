@@ -153,5 +153,45 @@
                 })
                 .ToList();
         }
+
+        public EditProductViewModel GetProductForEditById(int id)
+            => this.repository.All()
+            .Where(a => a.Id == id)
+            .To<EditProductViewModel>()
+            .FirstOrDefault();
+
+        public bool SaleIsByTheUserEdting(string userId, int productId)
+            => this.repository.All().Where(a => a.Id == productId)
+            .All(a => a.UserId == userId);
+
+        public async Task EditProductAsync(EditProductViewModel model)
+        {
+            var productToEdit = this.repository
+                .All()
+                .Where(a => a.Id == model.Id)
+                .FirstOrDefault();
+
+            var idTokens = model.CategoryAndSubcategoryId
+                .Split(":", System.StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            var categoryId = idTokens[0];
+            int? subcategoryId = null;
+            if (idTokens.Length == 2)
+            {
+                subcategoryId = idTokens[1];
+            }
+
+            productToEdit.ImageUrl = model.ImageUrl;
+            productToEdit.Name = model.Name;
+            productToEdit.Description = model.Description;
+            productToEdit.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
+            productToEdit.Quantity = model.Quantity;
+            productToEdit.CategoryId = categoryId;
+            productToEdit.SubcategoryId = subcategoryId;
+
+            await this.repository.SaveChangesAsync();
+        }
     }
 }
