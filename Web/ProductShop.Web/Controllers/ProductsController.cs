@@ -77,7 +77,7 @@
         public IActionResult Edit(int id)
         {
             var userId = this.userManager.GetUserId(this.User);
-            if (!this.productsService.SaleIsByTheUserEdting(userId, id))
+            if (!this.productsService.SaleIsByTheUserChanging(userId, id))
             {
                 return this.BadRequest();
             }
@@ -97,7 +97,7 @@
 
             var userId = this.userManager.GetUserId(this.User);
 
-            if (!this.productsService.SaleIsByTheUserEdting(userId, model.Id))
+            if (!this.productsService.SaleIsByTheUserChanging(userId, model.Id))
             {
                 return this.BadRequest();
             }
@@ -105,6 +105,20 @@
             await this.productsService.EditProductAsync(model);
 
             return this.RedirectToAction("Details", new { id = model.Id });
+        }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            if (!this.productsService.SaleIsByTheUserChanging(userId, id))
+            {
+                return this.BadRequest();
+            }
+
+            await this.productsService.RemoveProductAsync(id);
+
+            return this.RedirectToAction("MyProductsForSale");
         }
     }
 }

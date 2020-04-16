@@ -27,8 +27,10 @@
 
         public EditProductViewModel GetProductForEditById(int id);
 
-        public bool SaleIsByTheUserEdting(string userId, int productId);
+        public bool SaleIsByTheUserChanging(string userId, int productId);
 
         public Task EditProductAsync(EditProductViewModel model);
+
+        public Task RemoveProductAsync(int productId);
     }
 }

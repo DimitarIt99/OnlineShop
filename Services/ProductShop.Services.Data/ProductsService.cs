@@ -160,7 +160,7 @@
             .To<EditProductViewModel>()
             .FirstOrDefault();
 
-        public bool SaleIsByTheUserEdting(string userId, int productId)
+        public bool SaleIsByTheUserChanging(string userId, int productId)
             => this.repository.All().Where(a => a.Id == productId)
             .All(a => a.UserId == userId);
 
@@ -190,6 +190,15 @@
             productToEdit.Quantity = model.Quantity;
             productToEdit.CategoryId = categoryId;
             productToEdit.SubcategoryId = subcategoryId;
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task RemoveProductAsync(int productId)
+        {
+            var product = this.repository.All().Where(a => a.Id == productId).FirstOrDefault();
+
+            this.repository.Delete(product);
 
             await this.repository.SaveChangesAsync();
         }
