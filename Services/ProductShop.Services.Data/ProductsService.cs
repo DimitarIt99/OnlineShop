@@ -68,7 +68,8 @@
                     Price = p.Price,
                     Quantity = p.Quantity,
                     AverageRating = (decimal)p.Ratings.Average(d => (int)d.Grade),
-                    UserUserName = p.User.UserName,
+                    UserName = p.User.UserName,
+                    PhoneNumber = p.User.PhoneNumber,
                     Comments = p.Comments
                     .Where(c => c.ProductId == inputId)
                     .Select(c => new CommentsViewModel

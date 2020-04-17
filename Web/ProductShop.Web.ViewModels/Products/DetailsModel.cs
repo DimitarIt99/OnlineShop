@@ -27,7 +27,9 @@
 
         public int Quantity { get; set; }
 
-        public string UserUserName { get; set; }
+        public string UserName { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public decimal AverageRating { get; set; }
 
