@@ -21,6 +21,7 @@
             return this.View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(CreateCategoryViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -29,7 +30,7 @@
             }
 
             await this.service.CreateCategoryAsync(model);
-            return this.RedirectToAction("All", "Categories");
+            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
 
         public IActionResult Edit(int id)
@@ -49,13 +50,13 @@
 
             await this.service.EditCategoryAsync(model);
 
-            return this.RedirectToAction("All", "Categories");
+            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
 
-        public async Task<IActionResult> Delete(int categoryId)
+        public async Task<IActionResult> Delete(int id)
         {
-            await this.service.DeleteCategoryViewModelAsync(categoryId);
-            return this.RedirectToAction("All", "Categories");
+            await this.service.DeleteCategoryViewModelAsync(id);
+            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
     }
 }

@@ -7,12 +7,32 @@
             <div class="media-body">
                 <h5 class="mt-0">
                     <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-name="@category.Name">
-                        @category.Name (@category.ProductsCount) 
+                        @category.Name (@category.ProductsCount)
                         @*to do*@
                     </a>
+                    @if (User.IsInRole(ProductShop.Common.GlobalConstants.AdministratorRoleName))
+                    {
+                        <a asp-area="Administration"
+                           asp-controller="Categories"
+                           asp-action="Delete"
+                           asp-route-id="@category.Id"
+                           class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    }
                 </h5>
+                @if (User.IsInRole(ProductShop.Common.GlobalConstants.AdministratorRoleName))
+                {
+                    <a asp-area="Administration"
+                       asp-controller="Categories"
+                       asp-action="Edit"
+                       asp-route-id="@category.Id"
+                       class="btn btn-dark">Edit</a>
+                }
                 @category.Description
             </div>
         </div>
     }
 </div>
+@if (User.IsInRole(ProductShop.Common.GlobalConstants.AdministratorRoleName))
+{
+    <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-success">Add new</a>
+}
