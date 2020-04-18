@@ -16,7 +16,7 @@
             this.service = service;
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int categoryId)
         {
             return this.View();
         }
@@ -29,14 +29,14 @@
                 return this.View(model);
             }
 
-            // service
+            await this.service.CreateSubcategoryAsync(model);
 
-            return this.RedirectToAction("Home", "Index", new { area = string.Empty });
+            return this.RedirectToAction("Index", "Home", new { area = string.Empty });
         }
 
         public IActionResult Edit(int id)
         {
-            var subcategoryViewModel;//service
+            var subcategoryViewModel = this.service.GetSubcategoryForEditById(id);
 
             return this.View(subcategoryViewModel);
         }
@@ -49,16 +49,16 @@
                 return this.View(model);
             }
 
-            // service
+            await this.service.EditSubcategoryAsync(model);
 
-            return this.RedirectToAction("Home", "Index", new { area = string.Empty });
+            return this.RedirectToAction("Index", "Home", new { area = string.Empty });
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            // service
+            await this.service.DeleteSubcategoryAsync(id);
 
-            return this.RedirectToAction("Home", "Index", new { area = string.Empty });
+            return this.RedirectToAction("Index", "Home", new { area = string.Empty });
         }
     }
 }

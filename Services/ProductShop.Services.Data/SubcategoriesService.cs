@@ -41,7 +41,6 @@
         {
             var subcategory = this.GetSubcategoryById(model.Id);
             subcategory.Name = model.Name;
-            subcategory.CategoryId = model.CategoryId;
             subcategory.Description = model.Description;
 
             await this.repository.SaveChangesAsync();
@@ -53,7 +52,6 @@
 
             return new EditSubcategoryViewModel
             {
-                CategoryId = subcategory.CategoryId,
                 Description = subcategory.Description,
                 Id = subcategory.Id,
                 Name = subcategory.Name,

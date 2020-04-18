@@ -43,11 +43,13 @@
                 .Where(a => a.Id == categoryId)
                 .Select(a => new NameAndSubcategoriesNamesViewModel
                 {
+                    Id = a.Id,
                     Name = a.Name,
                     Subcategories = a.Subcategories
                     .Where(s => s.CategoryId == categoryId)
                     .Select(s => new SubcategoryNameViewModel
                     {
+                        Id = s.Id,
                         Name = s.Name,
                     }),
                     Products = a.Products

@@ -3,8 +3,6 @@
 <h1>@Model.Name</h1>
 @if (Model.Subcategories.Count() > 0)
 {
-
-
     <h4>Subcategories: </h4>
     <div>
         <span class="list-group-item">
@@ -13,11 +11,40 @@
                 <span style="font-size: 24px; color: black">
                     <span style="font-size: 24px;">
 
-                        <a style="color: lightslategrey" asp-area="" asp-controller="Subcategories" asp-action="Details" asp-route-name="@sub.Name"> <i class="fas fa-th style=" color: tomato""></i></a>
+                        <a style="color: lightslategrey"
+                           asp-area=""
+                           asp-controller="Subcategories"
+                           asp-action="Details"
+                           asp-route-name="@sub.Name"><i class="fas fa-th"></i>
+                        </a>
                     </span>
-
                     <strong><span>@sub.Name</span></strong>
+                    @if (User.IsInRole(ProductShop.Common.GlobalConstants.AdministratorRoleName))
+                    {
+                        <a style="color: blue"
+                           asp-area="Administration"
+                           asp-controller="Subcategories"
+                           asp-action="Edit"
+                           asp-route-id="@sub.Id"><i class="fas fa-pen"></i></a>
+                        <a style="color: red"
+                           asp-area="Administration"
+                           asp-controller="Subcategories"
+                           asp-action="Delete"
+                           asp-route-id="@sub.Id"><i class="fas fa-minus-circle"></i></a>
+                    }
                 </span>
+            }
+            @if (User.IsInRole(ProductShop.Common.GlobalConstants.AdministratorRoleName))
+            {
+                <a
+                   asp-area="Administration"
+                   asp-controller="Subcategories"
+                   asp-action="Create"
+                   asp-route-categoryId="@Model.Id"
+                   class="btn btn-success">
+                    <i class="fas fa-plus"></i>
+                    Add new
+                </a>
             }
         </span>
     </div>
