@@ -7,5 +7,11 @@
     public interface ICommentsService
     {
         public Task CreateCommentAsync(CreateCommentsViewModel model);
+
+        public EditCommentViewModel GetCommentToChange(int id);
+
+        public Task EditCommet(EditCommentViewModel model);
+
+        public Task DeleteComment(int id);
     }
 }

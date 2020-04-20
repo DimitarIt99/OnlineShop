@@ -67,7 +67,7 @@
                             <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-dark">Edit</a>
                         </div>
                         <div class="btn-group">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-dark">Delte</a>
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-dark">Delete</a>
                         </div>
                     }
                 </div>
@@ -98,7 +98,20 @@
                         <p>@Html.Raw(comment.SantizedContent)</p>
                         <form id="votesForm" method="post"></form>
                         <p>
-                            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                            @if (User.IsInRole(ProductShop.Common.GlobalConstants.AdministratorRoleName))
+                            {
+                                <a asp-area="Administration" 
+                                   asp-controller="Comments" 
+                                   asp-action="Edit" 
+                                   asp-route-id="@comment.Id" 
+                                   class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-edit"></i> Edit</a>
+
+                                <a asp-area="Administration" 
+                                   asp-controller="Comments" 
+                                   asp-action="Delete" 
+                                   asp-route-id="@comment.Id" 
+                                   class="float-right btn btn-outline-primary ml-2"><i class="far fa-times-circle"></i></a>
+                            }
                             <a class="float-right btn text-white btn-danger" onclick="sendVote(@comment.Id, false)"> <i class="fa fa-thumbs-down"></i> Dislike</a>
                             <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
                             <span id="votesCount">

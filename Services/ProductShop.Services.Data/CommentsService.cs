@@ -1,5 +1,6 @@
 ﻿namespace ProductShop.Services.Data
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using ProductShop.Data.Common.Repositories;
@@ -26,5 +27,38 @@
             await this.repository.AddAsync(comment);
             await this.repository.SaveChangesAsync();
         }
+
+        public async Task DeleteComment(int id)
+        {
+            var comment = this.GetComment(id);
+
+            this.repository.Delete(comment);
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task EditCommet(EditCommentViewModel model)
+        {
+            var comment = this.GetComment(model.Id);
+
+            comment.Content = model.Content;
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public EditCommentViewModel GetCommentToChange(int id)
+        => this.repository.All()
+            .Where(a => a.Id == id)
+            .Select(a => new EditCommentViewModel
+            {
+                Content = a.Content,
+                Id = a.Id,
+                ProductId = a.ProductId,
+            })
+            .FirstOrDefault();
+
+        private Comment GetComment(int id)
+            => this.repository.All()
+            .Where(a => a.Id == id)
+            .FirstOrDefault();
     }
 }
