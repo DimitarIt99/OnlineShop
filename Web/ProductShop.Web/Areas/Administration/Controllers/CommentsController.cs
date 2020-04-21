@@ -29,14 +29,14 @@
                 return this.View(model);
             }
 
-            await this.service.EditCommet(model);
+            await this.service.EditCommetAsync(model);
 
-            return this.RedirectToAction("Details", "Products", new { area = string.Empty, id = model.ProductId });
+            return this.RedirectToAction("Index", "Home", new { area = string.Empty});
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.service.DeleteComment(id);
+            await this.service.DeleteCommentAsync(id);
 
             return this.RedirectToAction("Index", "Home", new { area = string.Empty });
         }

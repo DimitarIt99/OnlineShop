@@ -10,8 +10,8 @@
 
         public EditCommentViewModel GetCommentToChange(int id);
 
-        public Task EditCommet(EditCommentViewModel model);
+        public Task EditCommetAsync(EditCommentViewModel model);
 
-        public Task DeleteComment(int id);
+        public Task DeleteCommentAsync(int id);
     }
 }

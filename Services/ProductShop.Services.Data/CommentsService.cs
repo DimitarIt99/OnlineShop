@@ -28,7 +28,7 @@
             await this.repository.SaveChangesAsync();
         }
 
-        public async Task DeleteComment(int id)
+        public async Task DeleteCommentAsync(int id)
         {
             var comment = this.GetComment(id);
 
@@ -36,11 +36,13 @@
             await this.repository.SaveChangesAsync();
         }
 
-        public async Task EditCommet(EditCommentViewModel model)
+        public async Task EditCommetAsync(EditCommentViewModel model)
         {
             var comment = this.GetComment(model.Id);
-
-            comment.Content = model.Content;
+            if (comment != null)
+            {
+                comment.Content = model.Content;
+            }
 
             await this.repository.SaveChangesAsync();
         }
@@ -55,6 +57,9 @@
                 ProductId = a.ProductId,
             })
             .FirstOrDefault();
+
+        public int GetCommentsCount()
+            => this.repository.All().Count();
 
         private Comment GetComment(int id)
             => this.repository.All()

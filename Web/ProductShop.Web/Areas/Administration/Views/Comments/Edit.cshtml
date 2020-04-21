@@ -1,0 +1,22 @@
+﻿@model ProductShop.Web.ViewModels.Comments.EditCommentViewModel
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+
+<form method="post">
+    <div>
+        <texta class="form-group">
+            <div><label asp-for="@Model.Content"></label></div>
+            <textarea asp-for="@Model.Content" rows="10" cols="50"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </texta>
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>

@@ -105,7 +105,7 @@
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 var birthday = new DateTime(Input.Year, Input.Month, Input.Day);
                 var phoneNumber = string.Join(string.Empty, Input.Phone.Split(" "));

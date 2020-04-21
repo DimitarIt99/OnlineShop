@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ProductShop.Data\ProductShop.Data.csproj" />
     <ProjectReference Include="..\..\Services\ProductShop.Services.Data\ProductShop.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\ProductShop.Web.ViewModels\ProductShop.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
