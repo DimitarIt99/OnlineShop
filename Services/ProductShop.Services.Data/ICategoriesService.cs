@@ -8,7 +8,7 @@
 
     public interface ICategoriesService
     {
-        IEnumerable<CategoryByNameAndPicture> All();
+        IEnumerable<CategoryByNameAndPicture> AllCategoriesWithTheirePictures();
 
         IEnumerable<CategoryNameViewModel> AllCategoryNames();
 
@@ -16,7 +16,7 @@
 
         int CategoryIdByName(string name);
 
-        NameAndSubcategoriesNamesViewModel SubcateriesNames(string categoryName, int? take = null, int skip = 0);
+        NameAndSubcategoriesNamesViewModel CategoryDetails(string categoryName, int take = 10, int skip = 0);
 
         public IEnumerable<CategoriesAndSubcategoriesByNameAndId> AllCategoriesAndSubacetoriesByName();
 
@@ -26,6 +26,6 @@
 
         public Task EditCategoryAsync(EditCategoryViewModel model);
 
-        public Task DeleteCategoryViewModelAsync(int id);
+        public Task DeleteCategoryAsync(int id);
     }
 }

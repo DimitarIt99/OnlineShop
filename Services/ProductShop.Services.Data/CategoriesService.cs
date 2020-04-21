@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using ProductShop.Data.Common.Repositories;
     using ProductShop.Data.Models;
     using ProductShop.Services.Mapping;
@@ -20,11 +21,28 @@
             this.repository = repository;
         }
 
-        public IEnumerable<CategoryByNameAndPicture> All()
-            => this.repository.All().To<CategoryByNameAndPicture>().ToList();
+        public IEnumerable<CategoryByNameAndPicture> AllCategoriesWithTheirePictures()
+            => this.repository.All()
+            .Select(a => new CategoryByNameAndPicture
+            {
+                Description = a.Description,
+                Id = a.Id,
+                ImageUrl = a.ImageUrl,
+                Name = a.Name,
+                ProductsCount = a.Products
+                .Where(s => s.CategoryId == a.Id)
+                .Where(s => s.Quantity >= 1)
+                .Count(),
+            })
+            .ToList();
 
         public IEnumerable<CategoryNameViewModel> AllCategoryNames()
-            => this.repository.All().To<CategoryNameViewModel>().ToList();
+            => this.repository.All()
+            .Select(a => new CategoryNameViewModel
+            {
+                Name = a.Name,
+            })
+            .ToList();
 
         public bool CategoryExist(string name)
             => this.repository.All().Any(c => c.Name == name);
@@ -35,7 +53,7 @@
             .Select(a => a.Id)
             .FirstOrDefault();
 
-        public NameAndSubcategoriesNamesViewModel SubcateriesNames(string categoryName, int? take = null, int skip = 0)
+        public NameAndSubcategoriesNamesViewModel CategoryDetails(string categoryName, int take = 10, int skip = 0)
         {
             var categoryId = this.CategoryIdByName(categoryName);
 
@@ -64,18 +82,11 @@
                         AverageRating = (decimal)s.Ratings.Average(d => (int)d.Grade),
                     })
                     .Skip(skip)
-                    .Take(take.Value)
+                    .Take(take)
                     .ToList(),
                 })
                 .FirstOrDefault();
-
-            //if (take.HasValue)
-            //{
-            //    result
-            //        .Select(a => a.Products.Take(take.Value));
-            //}
-
-            return result;//.FirstOrDefault();
+            return result;
         }
 
         public IEnumerable<CategoriesAndSubcategoriesByNameAndId> AllCategoriesAndSubacetoriesByName()
@@ -119,7 +130,7 @@
             await this.repository.SaveChangesAsync();
         }
 
-        public async Task DeleteCategoryViewModelAsync(int id)
+        public async Task DeleteCategoryAsync(int id)
         {
             var category = this.GetCategoryById(id);
             this.repository.Delete(category);

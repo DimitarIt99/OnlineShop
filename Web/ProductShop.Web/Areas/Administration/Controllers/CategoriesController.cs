@@ -55,7 +55,7 @@
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.service.DeleteCategoryViewModelAsync(id);
+            await this.service.DeleteCategoryAsync(id);
             return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
     }

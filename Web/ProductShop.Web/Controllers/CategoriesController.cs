@@ -20,7 +20,7 @@
 
         public IActionResult All()
         {
-            return this.View(this.categoryService.All());
+            return this.View(this.categoryService.AllCategoriesWithTheirePictures());
         }
 
         public IActionResult Details(CategoryNameViewModel model, int page = 1)
@@ -31,7 +31,7 @@
             }
 
             var productsCount = this.productsService.GetCountByCategoryName(model.Name);
-            var subcategoryModel = this.categoryService.SubcateriesNames(model.Name, ItemsPerPage, (page - 1) * ItemsPerPage);
+            var subcategoryModel = this.categoryService.CategoryDetails(model.Name, ItemsPerPage, (page - 1) * ItemsPerPage);
             subcategoryModel.PagesCount = ((productsCount - 1) / ItemsPerPage) + 1;
             subcategoryModel.CurrentPage = page;
             return this.View(subcategoryModel);
