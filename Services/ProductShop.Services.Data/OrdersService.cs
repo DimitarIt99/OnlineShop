@@ -14,12 +14,10 @@
     public class OrdersService : IOrdersService
     {
         private readonly IDeletableEntityRepository<Order> repository;
-        private readonly IProductsService productsService;
 
-        public OrdersService(IDeletableEntityRepository<Order> repository, IProductsService productsService)
+        public OrdersService(IDeletableEntityRepository<Order> repository)
         {
             this.repository = repository;
-            this.productsService = productsService;
         }
 
         public async Task AddOrderAsync(CreateOrderViewModel model)
@@ -29,14 +27,13 @@
                 UserId = model.UserId,
                 ProductId = model.ProductId,
                 Adress = model.Adress,
-                State = DeliveryState.Orderder,
+                State = DeliveryState.Ordered,
             };
-            await this.productsService.ReduceQuantityByIdAsync(model.ProductId);
             await this.repository.AddAsync(order);
             await this.repository.SaveChangesAsync();
         }
 
-        public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0)
+        public IEnumerable<OrderSummaryViewModel> AllOrdersByUserId(string userId, int take, int skip = 0)
         {
             var ordersList = this.repository
                 .All()
@@ -49,7 +46,6 @@
                     Name = a.Product.Name,
                     Price = a.Product.Price,
                     AverageRating = (decimal)a.Product.Ratings.Average(a => (int)a.Grade),
-
                 })
                 .Skip(skip)
                 .Take(take)
@@ -62,7 +58,7 @@
             .AllAsNoTracking()
             .Any(a => a.UserId == userId && a.ProductId == productId);
 
-        public async Task CancellAsync(RemoveOrderViewModel model)
+        public async Task<int> CancelAsync(RemoveOrderViewModel model)
         {
             var orderToCancell = this.repository.All()
                 .Where(a => a.Id == model.Id)
@@ -70,10 +66,10 @@
             var product = this.repository.All().Where(a => a.Id == model.Id)
                 .Select(a => a.ProductId)
                 .FirstOrDefault();
-            await this.productsService.IncreaseQuantityByIdAsync(product);
-
             this.repository.Delete(orderToCancell);
             await this.repository.SaveChangesAsync();
+
+            return product;
         }
 
         public async Task ChangeStateAsync(EditStateViewModel model)
@@ -112,10 +108,6 @@
             .Where(a => a.UserId == userId)
             .Count();
 
-        public bool OrderIdExists(string id)
-            => this.repository.All()
-            .Any(a => a.Id == id);
-
         private string AddingSpacesBetweenUpperCaseStrings(string originalState)
         {
             var spacedTexed = new StringBuilder();
@@ -133,7 +125,7 @@
                 }
             }
 
-            return spacedTexed.ToString();
+            return spacedTexed.ToString().Trim();
         }
     }
 }

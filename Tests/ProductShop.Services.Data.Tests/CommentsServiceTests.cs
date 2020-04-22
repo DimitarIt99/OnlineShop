@@ -16,7 +16,6 @@
 
     public class CommentsServiceTests
     {
-
         [Fact]
         public void GetCountTest()
         {

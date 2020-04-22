@@ -92,7 +92,18 @@
         public IEnumerable<CategoriesAndSubcategoriesByNameAndId> AllCategoriesAndSubacetoriesByName()
         {
             return this.repository.All()
-                .To<CategoriesAndSubcategoriesByNameAndId>()
+                .Select(a => new CategoriesAndSubcategoriesByNameAndId
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Subcategories = a.Subcategories
+                    .Select(s => new SubcategoriesByIdAndName
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                    })
+                    .ToList(),
+                })
                 .ToList();
         }
 

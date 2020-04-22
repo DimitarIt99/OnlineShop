@@ -10,15 +10,13 @@
     {
         public Task AddOrderAsync(CreateOrderViewModel model);
 
-        public Task CancellAsync(RemoveOrderViewModel model);
+        public Task<int> CancelAsync(RemoveOrderViewModel model);
 
-        public IEnumerable<OrderSummaryViewModel> AllMyOrders(string userId, int take, int skip = 0);
+        public IEnumerable<OrderSummaryViewModel> AllOrdersByUserId(string userId, int take, int skip = 0);
 
         public bool AlreadyOrdered(string userId, int productId);
 
         public Task ChangeStateAsync(EditStateViewModel model);
-
-        public bool OrderIdExists(string id);
 
         public DelivaryStateViewModel GetOrderDelivaryState(string id);
 

@@ -374,6 +374,70 @@
         }
 
         [Fact]
+        public async Task AllCategoriesAndSubacetoriesByName()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+               .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
+            var dbContext = new ApplicationDbContext(options);
+            dbContext.Categories.Add(new Category
+            {
+                Id = 1,
+                Name = "Test1",
+                Subcategories = new List<Subcategory>
+                {
+                    new Subcategory
+                    {
+                        Id = 1,
+                        Name = "Sub1",
+                        CategoryId = 1,
+                    },
+                    new Subcategory
+                    {
+                        Id = 2,
+                        Name = "Sub2",
+                        CategoryId = 1,
+                    },
+                    new Subcategory
+                    {
+                        Id = 3,
+                        Name = "Sub3",
+                        CategoryId = 1,
+                    },
+                },
+            });
+            dbContext.Categories.Add(new Category
+            {
+                Id = 2,
+                Name = "Test2",
+                Subcategories = new List<Subcategory>
+                {
+                    new Subcategory
+                    {
+                        Id = 5,
+                        Name = "Sub5",
+                        CategoryId = 2,
+                    },
+                },
+            });
+            await dbContext.SaveChangesAsync();
+            var repository = new EfDeletableEntityRepository<Category>(dbContext);
+            var service = new CategoriesService(repository);
+            var categoriesAndSubcategoriesNames = service.AllCategoriesAndSubacetoriesByName();
+            Assert.Contains("Sub3", categoriesAndSubcategoriesNames
+                .Where(a => a.Id == 1)
+                .SelectMany(a => a.Subcategories.Select(s => s.Name)));
+            Assert.DoesNotContain("sub5", categoriesAndSubcategoriesNames
+               .Where(a => a.Id == 1)
+               .Select(a => a.Name));
+            Assert.Equal(3, categoriesAndSubcategoriesNames
+               .Where(a => a.Id == 1)
+               .Select(a => a.Subcategories.Count())
+               .FirstOrDefault());
+            Assert.Equal(2, categoriesAndSubcategoriesNames
+               .Count());
+        }
+
+        [Fact]
         public async Task FindCategoryByIdTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()

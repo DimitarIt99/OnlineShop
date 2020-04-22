@@ -72,6 +72,7 @@
                     PhoneNumber = p.User.PhoneNumber,
                     Comments = p.Comments
                     .Where(c => c.ProductId == inputId)
+                    .OrderByDescending(a => a.Votes.Sum(v => (int)v.Type))
                     .Select(c => new CommentsViewModel
                     {
                         Id = c.Id,

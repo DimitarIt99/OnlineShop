@@ -3,7 +3,7 @@
     public enum DeliveryState
     {
         NotOrdered = 0,
-        Orderder = 1,
+        Ordered = 1,
         OnRoute = 2,
         OnTheAdress = 3,
         Received = 4,

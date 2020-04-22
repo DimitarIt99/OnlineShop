@@ -44,9 +44,8 @@
             }
 
             await this.ordersService.AddOrderAsync(model);
-
+            await this.productsService.ReduceQuantityByIdAsync(model.ProductId);
             return this.RedirectToAction("MyOrders");
-
         }
 
         public IActionResult MyOrders(int page = 1)
@@ -58,7 +57,7 @@
                 CurrentPage = page,
                 PagesCount = ((ordersCount - 1) / ItemsPerPage) + 1,
             };
-            orders.Orders = this.ordersService.AllMyOrders(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
+            orders.Orders = this.ordersService.AllOrdersByUserId(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
 
             return this.View(orders);
         }
@@ -83,12 +82,8 @@
                 Id = id,
             };
 
-           // if (!this.ordersService.IdExists(model.Id))
-           // {
-           //     return this.BadRequest();
-           // }
-
-            await this.ordersService.CancellAsync(model);
+            var productId = await this.ordersService.CancelAsync(model);
+            await this.productsService.IncreaseQuantityByIdAsync(productId);
             return this.RedirectToAction("MyOrders");
         }
 
