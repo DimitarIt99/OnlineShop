@@ -24,7 +24,7 @@
         public async Task<int> CreateProductAsync(CreateProductModel model)
         {
             var idTokens = model.CategoryAndSubcategoryId
-                .Split(":", System.StringSplitOptions.RemoveEmptyEntries)
+                .Split(":", StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
             var categoryId = idTokens[0];
