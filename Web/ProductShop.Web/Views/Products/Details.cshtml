@@ -114,7 +114,7 @@
                             }
                             <a class="float-right btn text-white btn-danger" onclick="sendVote(@comment.Id, false)"> <i class="fa fa-thumbs-down"></i> Dislike</a>
                             <a class="float-right btn text-white btn-primary" onclick="sendVote(@comment.Id, true)"> <i class="fa fa-thumbs-up"></i> Like</a>
-                            <span id="votesCount">
+                            <span id="@comment.Id">
                                 @comment.Votes
                             </span>
                             <span>Likes</span>
@@ -139,7 +139,7 @@
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
-                    $("#votesCount").html(data.votesCount);
+                    $("#" + commentId).html(data.votesCount);
                 }
             });
         }
